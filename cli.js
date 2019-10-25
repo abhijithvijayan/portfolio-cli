@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const meow = require('meow');
-const portfolioCLI = require('./');
+const initializeCLI = require('./src/');
 
 const cli = meow(
 	`
@@ -29,4 +29,4 @@ const cli = meow(
 	}
 );
 
-portfolioCLI(cli.flags, cli.input);
+initializeCLI(cli.flags, cli.input);

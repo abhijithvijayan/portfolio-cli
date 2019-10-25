@@ -2,13 +2,14 @@
  *  @author abhijithvijayan <abhijithvijayan.in>
  */
 
-const ora = require('ora');
 const chalk = require('chalk');
+const execa = require('execa');
 const isObject = require('validate.io-object');
 const isString = require('validate.io-string-primitive');
 const isBoolean = require('validate.io-boolean-primitive');
 
-const pkg = require('./package.json');
+const pkg = require('../package.json');
+const Spinner = require('./utils/spinner');
 
 /**
  *  Display Errors
@@ -68,7 +69,35 @@ const validate = _options => {
 	return null;
 };
 
-const portfolioCLI = (_options, input) => {
+const fetchTemplate = async () => {
+	// ToDo: Check if `git help -a` returns anything
+
+	const repoURL = 'https://github.com/abhijithvijayan/abhijithvijayan.in';
+
+	const fetchSpinner = new Spinner('Fetching the boilerplate template');
+	fetchSpinner.start();
+
+	try {
+		// ToDo: use repo name as folder
+		await execa('git', ['clone', repoURL, '--branch', 'master', '--single-branch', 'portfolio']);
+	} catch (err) {
+		fetchSpinner.fail('Something went wrong');
+		throw err;
+	}
+
+	fetchSpinner.stop();
+
+	// ToDo: Show up initial instructions to the user
+};
+
+/**
+ *	Driver Function
+ *
+ *  @param {Object} _options
+ *  @param {Array} input
+ */
+
+const initializeCLI = (_options, input) => {
 	// Run validators to CLI input flags
 	const err = validate(_options);
 	if (err) {
@@ -95,6 +124,8 @@ const portfolioCLI = (_options, input) => {
 			flashError('Error: creating repository needs token. Set --token');
 		}
 	}
+
+	fetchTemplate();
 };
 
-module.exports = portfolioCLI;
+module.exports = initializeCLI;
