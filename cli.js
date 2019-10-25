@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 'use strict';
 const meow = require('meow');
-const cli = require('./');
+const portfolioCLI = require('./');
 
-meow(`
+const cli = meow(`
 	Usage
 	  $ abhijithvijayan-portfolio [input]
 
@@ -13,6 +13,16 @@ meow(`
   Examples
     $ abhijithvijayan-portfolio --generate
 `, {
-	flags: {}
+	flags: {
+    boolean: ['version'],
+    string: ['generate', 'token', 'repo', 'message'],
+    alias: {
+      g: 'generate',
+      r: 'repo',
+      t: 'token',
+      v: 'version',
+    }
+  }
 });
 
+portfolioCLI(cli.flags)
