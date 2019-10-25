@@ -16,8 +16,9 @@ const cli = meow(
 `,
 	{
 		flags: {
+			input: ['generate'],
 			boolean: ['version'],
-			string: ['generate', 'token', 'repo', 'message'],
+			string: ['token', 'repo', 'message'],
 			alias: {
 				g: 'generate',
 				r: 'repo',
@@ -28,4 +29,4 @@ const cli = meow(
 	}
 );
 
-portfolioCLI(cli.flags);
+portfolioCLI(cli.flags, cli.input);

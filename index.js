@@ -23,6 +23,15 @@ const validate = _options => {
 		return new TypeError(`invalid input argument. Options argument must be an object. Value: \`${_options}\`.`);
 	}
 	if (
+		Object.prototype.hasOwnProperty.call(_options, 'generate') ||
+		Object.prototype.hasOwnProperty.call(_options, 'g')
+	) {
+		options.generate = _options.generate || _options.g;
+		if (!isBoolean(options.generate)) {
+			return new TypeError(`invalid option. Generate option must be a boolean primitive.`);
+		}
+	}
+	if (
 		Object.prototype.hasOwnProperty.call(_options, 'token') ||
 		Object.prototype.hasOwnProperty.call(_options, 't')
 	) {
@@ -58,7 +67,7 @@ const validate = _options => {
 	return null;
 };
 
-const portfolioCLI = _options => {
+const portfolioCLI = (_options, input) => {
 	// Run validators to CLI input flags
 	const err = validate(_options);
 	if (err) {
@@ -66,11 +75,24 @@ const portfolioCLI = _options => {
 		return;
 	}
 
-	const { version } = options;
+	const { token = '', repo, version } = options;
 
 	if (version) {
 		console.log(chalk.bold.green(pkg.version));
 		return pkg.version;
+	}
+
+	// command `generate`
+	const generate = input[0];
+	if (!generate) {
+		flashError('Error! generate is a required field.');
+		return;
+	}
+
+	if (repo) {
+		if (!token) {
+			flashError('Error: creating repository needs token. Set --token');
+		}
 	}
 };
 
