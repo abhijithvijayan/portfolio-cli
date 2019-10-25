@@ -39,6 +39,7 @@
 	"dependencies": {
 		"chalk": "^2.4.2",
 		"meow": "^5.0.0",
+		"ora": "^4.0.2",
 		"validate.io-boolean-primitive": "^1.0.0",
 		"validate.io-object": "^1.0.4",
 		"validate.io-string-primitive": "^1.0.1"

@@ -2,6 +2,7 @@
  *  @author abhijithvijayan <abhijithvijayan.in>
  */
 
+const ora = require('ora');
 const chalk = require('chalk');
 const isObject = require('validate.io-object');
 const isString = require('validate.io-string-primitive');
