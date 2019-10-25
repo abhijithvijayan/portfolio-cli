@@ -1,0 +1,30 @@
+{
+	"name": "abhijithvijayan-portfolio",
+	"version": "0.0.1",
+	"description": "CLI to use my portfolio site template to build yours.",
+	"license": "MIT",
+	"author": "abhijithvijayan",
+	"bin": {
+		"abhijithvijayan-portfolio": "cli.js"
+	},
+	"engines": {
+		"node": ">=8"
+	},
+	"files": [
+		"cli.js"
+	],
+	"keywords": [
+		"cli",
+		"cli-app",
+		"abhijithvijayan",
+		"portfolio",
+		"template",
+		"generator"
+	],
+	"dependencies": {
+		"meow": "^5.0.0"
+	},
+	"devDependencies": {
+		"execa": "^3.2.0"
+	}
+}
