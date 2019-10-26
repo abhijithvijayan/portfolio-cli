@@ -156,9 +156,9 @@ const initializeCLI = (_options, input) => {
 		return pkg.version;
 	}
 
-	// command `generate`
+	// ToDo: handle this validator
 	const generate = input[0];
-	if (!generate) {
+	if (!generate || generate !== 'generate') {
 		return flashError('Error! generate is a required field.');
 	}
 
