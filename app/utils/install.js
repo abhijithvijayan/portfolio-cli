@@ -4,10 +4,9 @@ const chalk = require('chalk');
 const inquirer = require('inquirer');
 
 const Spinner = require('./spinner');
-const flashError = require('./message');
+const flashError = require('./displayMessages');
 const { isLinux, isWin } = require('./os');
 
-// Initialize the spinner.
 const spinner = new Spinner();
 
 /**
@@ -16,16 +15,16 @@ const spinner = new Spinner();
 const installGit = async () => {
 	if (isWin) {
 		const url = 'https://git-scm.com/download/win';
-		// show installation info
+		// ToDo: show installation info
 	} else {
-		const packageMgr = isLinux ? 'apt' : 'brew';
+		const packageManager = isLinux ? 'apt' : 'brew';
 		// eslint-disable-next-line no-useless-catch
 		try {
 			await execa('sudo apt update', { stdio: 'inherit', shell: true });
-			await execa(`${packageMgr} install git`, { stdio: 'inherit', shell: true });
-			// You're good to go
+			await execa(`${packageManager} install git`, { stdio: 'inherit', shell: true });
+			// show success message
 		} catch (err) {
-			// Something went wrong
+			// Something went wrong during installation
 			throw err;
 		}
 	}
@@ -37,17 +36,17 @@ const installGit = async () => {
 const installYarn = async () => {
 	if (isWin) {
 		const url = 'https://yarnpkg.com/lang/en/docs/install/#windows-stable';
-		// show installation info
+		// ToDo: show installation info
 	} else {
-		const packageMgr = isLinux ? 'apt' : 'brew';
+		const packageManager = isLinux ? 'apt' : 'brew';
 		// eslint-disable-next-line no-useless-catch
 		try {
 			await execa('sudo apt update', { stdio: 'inherit', shell: true });
 			// ToDo: If needed, configure the repository first
-			await execa(`${packageMgr} install yarn`, { stdio: 'inherit', shell: true });
-			// You're good to go
+			await execa(`${packageManager} install yarn`, { stdio: 'inherit', shell: true });
+			// show success message
 		} catch (err) {
-			// Something went wrong
+			// Something went wrong during installation
 			throw err;
 		}
 	}

@@ -17,7 +17,7 @@ const servePortfolioTemplate = async templateDir => {
 	}
 	installDepsSpinner.succeed(`You're all set`);
 
-	// ToDo: Delete unwanted content & serve on port
+	// ToDo: Delete unwanted user-specific content & serve on port
 };
 
 module.exports = servePortfolioTemplate;

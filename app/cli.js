@@ -13,12 +13,12 @@ const isBoolean = require('validate.io-boolean-primitive');
 const pkg = require('../package.json');
 const { isWin } = require('./utils/os');
 const Spinner = require('./utils/spinner');
-const flashError = require('./utils/message');
+const flashError = require('./utils/displayMessages');
 const servePortfolioTemplate = require('./serve');
 const validateDependencyInstallation = require('./utils/install');
 
 const options = {};
-const projectName = 'portfolio';
+const portfolioDir = 'portfolio';
 
 /**
  *  CLI arguments validator
@@ -77,7 +77,8 @@ const validate = _options => {
  */
 const performInitialCommit = () => {
 	// change into directory
-	process.chdir(projectName);
+	process.chdir(portfolioDir);
+
 	const commands = ['init', 'add%.', 'commit%-m "⚡️ Initial commit from abhijithvijayan-portfolio CLI"'];
 	commands.forEach(command => {
 		return execa.sync('git', command.split('%'));
@@ -85,31 +86,24 @@ const performInitialCommit = () => {
 };
 
 /**
- *  Logs next actions to user
+ *  Shows next actions to user
  */
-const showInitialInstructions = () => {
+const showInitialCommandsToUser = () => {
 	console.log();
-	console.log(chalk.cyan.bold(` You're all set`));
+	console.log(chalk.cyan.bold(` Initialized a git repository.`));
 	console.log(
 		chalk.cyan.bold(
-			` Now, just type in ${chalk.green.bold(`cd ${projectName}`)} && ${chalk.green.bold(
+			` Now, just type in ${chalk.green.bold(`cd ${portfolioDir}`)} && ${chalk.green.bold(
 				'abhijithvijayan-portfolio serve'
 			)}`
 		)
 	);
-
-	// Remove `.git` folder
-	const OsRemoveCmd = isWin ? 'rmdir /s /q' : 'rm -rf';
-	execa(`${OsRemoveCmd} ${path.join(projectName, '.git')}`, { shell: true });
-
-	// Initial commit template files
-	performInitialCommit();
 };
 
 /**
  *  Fetch and Clone the template
  */
-const fetchTemplate = async () => {
+const fetchPortfolioTemplate = async () => {
 	await validateDependencyInstallation('git help -a');
 
 	const repoURL = 'https://github.com/abhijithvijayan/abhijithvijayan.in';
@@ -119,7 +113,7 @@ const fetchTemplate = async () => {
 
 	try {
 		// ToDo: use repo name as folder
-		await execa('git', ['clone', repoURL, '--branch', 'master', '--single-branch', projectName]);
+		await execa('git', ['clone', repoURL, '--branch', 'master', '--single-branch', portfolioDir]);
 	} catch (err) {
 		fetchSpinner.fail('Something went wrong');
 		throw err;
@@ -127,15 +121,19 @@ const fetchTemplate = async () => {
 
 	fetchSpinner.stop();
 
-	// Show initial instructions to the user
-	showInitialInstructions();
+	// Remove `.git` folder
+	const OsRemoveCmd = isWin ? 'rmdir /s /q' : 'rm -rf';
+	execa(`${OsRemoveCmd} ${path.join(portfolioDir, '.git')}`, { shell: true });
+
+	// Initial commit template files
+	performInitialCommit();
+
+	showInitialCommandsToUser();
 };
 
 /**
  *	Driver Function
  *
- *  @param {Object} _options
- *  @param {Array} input
  */
 const initializeCLI = (_options, userInputs) => {
 	// Run validators to CLI input flags
@@ -171,13 +169,13 @@ const initializeCLI = (_options, userInputs) => {
 			return flashError('Error: creating repository needs token. Set --token');
 		}
 	}
-	if (fs.existsSync(projectName)) {
-		return flashError(`Error: Directory ${chalk.cyan.bold(projectName)} already exists in path!`);
+	if (fs.existsSync(portfolioDir)) {
+		return flashError(`Error: Directory ${chalk.cyan.bold(portfolioDir)} already exists in path!`);
 	}
 	if (generate) {
-		fetchTemplate();
+		fetchPortfolioTemplate();
 	} else if (serve) {
-		servePortfolioTemplate(projectName);
+		servePortfolioTemplate(portfolioDir);
 	}
 };
 
