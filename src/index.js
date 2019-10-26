@@ -13,6 +13,9 @@ const pkg = require('../package.json');
 const Spinner = require('./utils/spinner');
 const { isWin } = require('./utils/os');
 
+const options = {};
+const projectName = 'portfolio';
+
 /**
  *  Display Errors
  */
@@ -21,9 +24,9 @@ const flashError = message => {
 	process.exit(1);
 };
 
-const options = {};
-const projectName = 'portfolio';
-
+/**
+ *  CLI arguments validator
+ */
 const validate = _options => {
 	if (!isObject(_options)) {
 		return new TypeError(`invalid input argument. Options argument must be an object. Value: \`${_options}\`.`);
@@ -73,6 +76,21 @@ const validate = _options => {
 	return null;
 };
 
+/**
+ *  Performs initial commit
+ */
+const performInitialCommit = () => {
+	// change into directory
+	process.chdir(projectName);
+	const commands = ['init', 'add%.', 'commit%-m "⚡️ Initial commit from abhijithvijayan-portfolio CLI"'];
+	commands.forEach(command => {
+		return execa.sync('git', command.split('%'));
+	});
+};
+
+/**
+ *  Logs next actions to user
+ */
 const showInitialInstructions = () => {
 	console.log();
 	console.log(chalk.cyan.bold(` You're all set`));
@@ -88,9 +106,13 @@ const showInitialInstructions = () => {
 	const OsRemoveCmd = isWin ? 'rmdir /s /q' : 'rm -rf';
 	execa(`${OsRemoveCmd} ${path.join(projectName, '.git')}`, { shell: true });
 
-	// ToDo: Initial commit files
+	// Initial commit template files
+	performInitialCommit();
 };
 
+/**
+ *  Fetch and Clone the template
+ */
 const fetchTemplate = async () => {
 	// ToDo: Check if `git help -a` returns anything
 
@@ -119,7 +141,6 @@ const fetchTemplate = async () => {
  *  @param {Object} _options
  *  @param {Array} input
  */
-
 const initializeCLI = (_options, input) => {
 	// Run validators to CLI input flags
 	const err = validate(_options);
@@ -147,6 +168,8 @@ const initializeCLI = (_options, input) => {
 			flashError('Error: creating repository needs token. Set --token');
 		}
 	}
+
+	// ToDo: check if directory exists(exit on true)
 
 	fetchTemplate();
 };
