@@ -13,6 +13,7 @@ const isBoolean = require('validate.io-boolean-primitive');
 const pkg = require('../package.json');
 const Spinner = require('./utils/spinner');
 const { isWin } = require('./utils/os');
+const servePortfolioTemplate = require('./serve');
 
 const options = {};
 const projectName = 'portfolio';
@@ -142,7 +143,7 @@ const fetchTemplate = async () => {
  *  @param {Object} _options
  *  @param {Array} input
  */
-const initializeCLI = (_options, input) => {
+const initializeCLI = (_options, userInputs) => {
 	// Run validators to CLI input flags
 	const err = validate(_options);
 	if (err) {
@@ -156,23 +157,34 @@ const initializeCLI = (_options, input) => {
 		return pkg.version;
 	}
 
-	// ToDo: handle this validator
-	const generate = input[0];
-	if (!generate || generate !== 'generate') {
-		return flashError('Error! generate is a required field.');
-	}
+	const firstInput = userInputs[0];
+	let generate = false;
+	let serve = false;
 
+	if (!firstInput || (firstInput !== 'generate' && firstInput !== 'serve')) {
+		return flashError('Error! Unknown input fields');
+	}
+	if (firstInput === 'generate') {
+		generate = true;
+	} else if (firstInput === 'serve') {
+		serve = true;
+	}
+	if (!generate && !serve) {
+		return flashError('Error: Input fields missing');
+	}
 	if (repo) {
 		if (!token) {
 			return flashError('Error: creating repository needs token. Set --token');
 		}
 	}
-
 	if (fs.existsSync(projectName)) {
 		return flashError(`Error: Directory ${chalk.cyan.bold(projectName)} already exists in path!`);
 	}
-
-	fetchTemplate();
+	if (generate) {
+		fetchTemplate();
+	} else if (serve) {
+		servePortfolioTemplate(projectName);
+	}
 };
 
 module.exports = initializeCLI;
