@@ -1,7 +1,7 @@
 {
 	"name": "abhijithvijayan-portfolio",
-	"version": "0.0.7",
-	"description": "CLI to use my portfolio site template to build yours.",
+	"version": "1.0.0",
+	"description": "CLI to use my portfolio site as a template to build yours!",
 	"license": "MIT",
 	"author": "abhijithvijayan",
 	"bin": {
