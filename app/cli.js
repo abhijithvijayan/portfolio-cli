@@ -110,6 +110,8 @@ const showInitialInstructions = () => {
  *  Fetch and Clone the template
  */
 const fetchTemplate = async () => {
+	await validateDependencyInstallation('git help -a');
+
 	const repoURL = 'https://github.com/abhijithvijayan/abhijithvijayan.in';
 
 	const fetchSpinner = new Spinner('Fetching the boilerplate template');
