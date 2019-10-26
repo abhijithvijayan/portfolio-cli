@@ -1,11 +1,11 @@
 {
 	"name": "abhijithvijayan-portfolio",
-	"version": "0.0.5",
+	"version": "0.0.6",
 	"description": "CLI to use my portfolio site template to build yours.",
 	"license": "MIT",
 	"author": "abhijithvijayan",
 	"bin": {
-		"abhijithvijayan-portfolio": "cli.js"
+		"abhijithvijayan-portfolio": "app"
 	},
 	"engines": {
 		"node": ">=8"
