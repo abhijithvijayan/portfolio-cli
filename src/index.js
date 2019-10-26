@@ -20,6 +20,8 @@ const flashError = message => {
 };
 
 const options = {};
+const projectName = 'portfolio';
+
 const validate = _options => {
 	if (!isObject(_options)) {
 		return new TypeError(`invalid input argument. Options argument must be an object. Value: \`${_options}\`.`);
@@ -69,6 +71,20 @@ const validate = _options => {
 	return null;
 };
 
+const showInitialInstructions = () => {
+	console.log();
+	console.log(chalk.cyan.bold(` You're all set`));
+	console.log(
+		chalk.cyan.bold(
+			` Now, just type in ${chalk.green.bold(`cd ${projectName}`)} && ${chalk.green.bold(
+				'abhijithvijayan-portfolio serve'
+			)}`
+		)
+	);
+
+	// ToDo: Initial commit files
+};
+
 const fetchTemplate = async () => {
 	// ToDo: Check if `git help -a` returns anything
 
@@ -79,7 +95,7 @@ const fetchTemplate = async () => {
 
 	try {
 		// ToDo: use repo name as folder
-		await execa('git', ['clone', repoURL, '--branch', 'master', '--single-branch', 'portfolio']);
+		await execa('git', ['clone', repoURL, '--branch', 'master', '--single-branch', projectName]);
 	} catch (err) {
 		fetchSpinner.fail('Something went wrong');
 		throw err;
@@ -87,7 +103,8 @@ const fetchTemplate = async () => {
 
 	fetchSpinner.stop();
 
-	// ToDo: Show up initial instructions to the user
+	// Show initial instructions to the user
+	showInitialInstructions();
 };
 
 /**
