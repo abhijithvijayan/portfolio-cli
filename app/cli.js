@@ -11,9 +11,11 @@ const isString = require('validate.io-string-primitive');
 const isBoolean = require('validate.io-boolean-primitive');
 
 const pkg = require('../package.json');
-const Spinner = require('./utils/spinner');
 const { isWin } = require('./utils/os');
+const Spinner = require('./utils/spinner');
+const flashError = require('./utils/message');
 const servePortfolioTemplate = require('./serve');
+const validateDependencyInstallation = require('./utils/install');
 
 const options = {};
 const projectName = 'portfolio';
@@ -71,14 +73,6 @@ const validate = _options => {
 };
 
 /**
- *  Display Errors
- */
-const flashError = message => {
-	console.error(chalk.bold.red(`✖ ${message}`));
-	process.exit(1);
-};
-
-/**
  *  Performs initial commit
  */
 const performInitialCommit = () => {
@@ -116,8 +110,6 @@ const showInitialInstructions = () => {
  *  Fetch and Clone the template
  */
 const fetchTemplate = async () => {
-	// ToDo: Check if `git help -a` returns anything
-
 	const repoURL = 'https://github.com/abhijithvijayan/abhijithvijayan.in';
 
 	const fetchSpinner = new Spinner('Fetching the boilerplate template');
