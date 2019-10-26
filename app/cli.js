@@ -32,42 +32,35 @@ const validate = _options => {
 		Object.prototype.hasOwnProperty.call(_options, 'g')
 	) {
 		options.generate = _options.generate || _options.g;
-		if (!isBoolean(options.generate)) {
+		if (!isBoolean(options.generate))
 			return new TypeError(`invalid option. Generate option must be a boolean primitive.`);
-		}
 	}
 	if (
 		Object.prototype.hasOwnProperty.call(_options, 'token') ||
 		Object.prototype.hasOwnProperty.call(_options, 't')
 	) {
 		options.token = _options.token || _options.t;
-		if (!isString(options.token)) {
-			return new TypeError(`invalid option. Token must be a string primitive.`);
-		}
+		if (!isString(options.token)) return new TypeError(`invalid option. Token must be a string primitive.`);
 	}
 	if (Object.prototype.hasOwnProperty.call(_options, 'repo') || Object.prototype.hasOwnProperty.call(_options, 'r')) {
 		options.repo = _options.repo || _options.r;
-		if (!isString(options.repo)) {
-			return new TypeError(`invalid option. Repo name must be a string primitive.`);
-		}
+		if (!isString(options.repo)) return new TypeError(`invalid option. Repo name must be a string primitive.`);
 	}
 	if (
 		Object.prototype.hasOwnProperty.call(_options, 'message') ||
 		Object.prototype.hasOwnProperty.call(_options, 'm')
 	) {
 		options.message = _options.message || _options.m;
-		if (!isString(options.message)) {
+		if (!isString(options.message))
 			return new TypeError(`invalid option. Commit message must be a string primitive.`);
-		}
 	}
 	if (
 		Object.prototype.hasOwnProperty.call(_options, 'version') ||
 		Object.prototype.hasOwnProperty.call(_options, 'v')
 	) {
 		options.version = _options.version || _options.v;
-		if (!isBoolean(options.version)) {
+		if (!isBoolean(options.version))
 			return new TypeError(`invalid option. Version option must be a boolean primitive.`);
-		}
 	}
 	return null;
 };
@@ -138,9 +131,7 @@ const fetchPortfolioTemplate = async () => {
 const initializeCLI = (_options, userInputs) => {
 	// Run validators to CLI input flags
 	const err = validate(_options);
-	if (err) {
-		return flashError(err);
-	}
+	if (err) return flashError(err);
 
 	const { token = '', repo, version } = options;
 
@@ -153,30 +144,22 @@ const initializeCLI = (_options, userInputs) => {
 	let generate = false;
 	let serve = false;
 
-	if (!firstInput || (firstInput !== 'generate' && firstInput !== 'serve')) {
+	if (!firstInput || (firstInput !== 'generate' && firstInput !== 'serve'))
 		return flashError('Error! Unknown input fields');
-	}
-	if (firstInput === 'generate') {
-		generate = true;
-	} else if (firstInput === 'serve') {
-		serve = true;
-	}
-	if (!generate && !serve) {
-		return flashError('Error: Input fields missing');
-	}
+
+	if (firstInput === 'generate') generate = true;
+	else if (firstInput === 'serve') serve = true;
+
+	if (!generate && !serve) return flashError('Error: Input fields missing');
+
 	if (repo) {
-		if (!token) {
-			return flashError('Error: creating repository needs token. Set --token');
-		}
+		if (!token) return flashError('Error: creating repository needs token. Set --token');
 	}
-	if (fs.existsSync(portfolioDir)) {
+	if (fs.existsSync(portfolioDir))
 		return flashError(`Error: Directory ${chalk.cyan.bold(portfolioDir)} already exists in path!`);
-	}
-	if (generate) {
-		fetchPortfolioTemplate();
-	} else if (serve) {
-		servePortfolioTemplate(portfolioDir);
-	}
+
+	if (generate) fetchPortfolioTemplate();
+	else if (serve) servePortfolioTemplate(portfolioDir);
 };
 
 module.exports = initializeCLI;
