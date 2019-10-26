@@ -1,11 +1,14 @@
 const execa = require('execa');
 const Spinner = require('./utils/spinner');
 
+const validateDependencyInstallation = require('./utils/install');
+
 const servePortfolioTemplate = async templateDir => {
+	await validateDependencyInstallation('yarn --version');
+
 	const installDepsSpinner = new Spinner('Installing dependencies in the background. Hold on...');
 	installDepsSpinner.start();
 
-	// ToDo: check if yarn installed first
 	try {
 		await execa('yarn', ['install']);
 	} catch (err) {

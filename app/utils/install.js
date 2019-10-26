@@ -32,6 +32,28 @@ const installGit = async () => {
 };
 
 /**
+ *  Trigger yarn installation
+ */
+const installYarn = async () => {
+	if (isWin) {
+		const url = 'https://yarnpkg.com/lang/en/docs/install/#windows-stable';
+		// show installation info
+	} else {
+		const packageMgr = isLinux ? 'apt' : 'brew';
+		// eslint-disable-next-line no-useless-catch
+		try {
+			await execa('sudo apt update', { stdio: 'inherit', shell: true });
+			// ToDo: If needed, configure the repository first
+			await execa(`${packageMgr} install yarn`, { stdio: 'inherit', shell: true });
+			// You're good to go
+		} catch (err) {
+			// Something went wrong
+			throw err;
+		}
+	}
+};
+
+/**
  *  Run dependency command to see if it is installed
  */
 const checkIfDependencyIsInstalled = async command => {
@@ -64,6 +86,10 @@ const validateDependencyInstallation = async dependency => {
 			switch (dependency) {
 				case 'git help -a': {
 					await installGit();
+					break;
+				}
+				case 'yarn --version': {
+					await installYarn();
 					break;
 				}
 			}
