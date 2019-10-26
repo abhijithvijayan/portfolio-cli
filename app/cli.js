@@ -69,6 +69,10 @@ const validate = _options => {
  *  Performs initial commit
  */
 const performInitialCommit = () => {
+	// Remove existing `.git` folder
+	const OsRemoveCmd = isWin ? 'rmdir /s /q' : 'rm -rf';
+	execa(`${OsRemoveCmd} ${path.join(portfolioDir, '.git')}`, { shell: true });
+
 	// change into directory
 	process.chdir(portfolioDir);
 
@@ -81,16 +85,26 @@ const performInitialCommit = () => {
 /**
  *  Shows next actions to user
  */
-const showInitialCommandsToUser = () => {
+const showInitialCommandsToUser = destination => {
+	console.log(chalk.default(`Initialized a git repository.`));
 	console.log();
-	console.log(chalk.cyan.bold(` Initialized a git repository.`));
 	console.log(
-		chalk.cyan.bold(
-			` Now, just type in ${chalk.green.bold(`cd ${portfolioDir}`)} && ${chalk.green.bold(
-				'abhijithvijayan-portfolio serve'
-			)}`
-		)
+		chalk.default(`Success! Created test at ${destination}\nInside that directory, you can run several commands:`)
 	);
+	console.log();
+	console.log(chalk.cyan.bold(`  yarn dev`));
+	console.log(chalk.default(`    Starts the development server.`));
+	console.log();
+	console.log(chalk.cyan.bold(`  yarn build`));
+	console.log(chalk.default(`    Bundles the app for production.`));
+	console.log();
+	console.log(chalk.cyan.bold(`  yarn export`));
+	console.log(chalk.default(`    Bundles the app into static files using Next.js static exports.`));
+	console.log();
+	console.log(chalk.default(`We suggest that you begin by typing:`));
+	console.log();
+	console.log(chalk.default(`  ${chalk.cyan.bold(`cd`)} ${portfolioDir}`));
+	console.log(chalk.cyan.bold(`  abhijithvijayan-portfolio serve`));
 };
 
 /**
@@ -100,28 +114,21 @@ const fetchPortfolioTemplate = async () => {
 	await validateDependencyInstallation('git help -a');
 
 	const repoURL = 'https://github.com/abhijithvijayan/abhijithvijayan.in';
+	const destination = path.resolve(process.cwd(), portfolioDir);
+	const fetchSpinner = new Spinner(`Generating a new portfolio site in ${destination}`);
 
-	const fetchSpinner = new Spinner('Fetching the boilerplate template');
+	console.log();
 	fetchSpinner.start();
-
 	try {
-		// ToDo: use repo name as folder
 		await execa('git', ['clone', repoURL, '--branch', 'master', '--single-branch', portfolioDir]);
 	} catch (err) {
 		fetchSpinner.fail('Something went wrong');
 		throw err;
 	}
-
 	fetchSpinner.stop();
 
-	// Remove `.git` folder
-	const OsRemoveCmd = isWin ? 'rmdir /s /q' : 'rm -rf';
-	execa(`${OsRemoveCmd} ${path.join(portfolioDir, '.git')}`, { shell: true });
-
-	// Initial commit template files
 	performInitialCommit();
-
-	showInitialCommandsToUser();
+	showInitialCommandsToUser(destination);
 };
 
 /**
@@ -158,8 +165,11 @@ const initializeCLI = (_options, userInputs) => {
 	if (fs.existsSync(portfolioDir))
 		return flashError(`Error: Directory ${chalk.cyan.bold(portfolioDir)} already exists in path!`);
 
-	if (generate) fetchPortfolioTemplate();
-	else if (serve) servePortfolioTemplate(portfolioDir);
+	if (generate) {
+		fetchPortfolioTemplate();
+	} else if (serve) {
+		servePortfolioTemplate(portfolioDir);
+	}
 };
 
 module.exports = initializeCLI;
