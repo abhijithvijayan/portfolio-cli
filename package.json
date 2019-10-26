@@ -47,6 +47,7 @@
 	"dependencies": {
 		"chalk": "^2.4.2",
 		"execa": "^3.2.0",
+		"inquirer": "^7.0.0",
 		"meow": "^5.0.0",
 		"ora": "^4.0.2",
 		"validate.io-boolean-primitive": "^1.0.0",
