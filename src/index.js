@@ -2,6 +2,7 @@
  *  @author abhijithvijayan <abhijithvijayan.in>
  */
 
+const fs = require('fs');
 const path = require('path');
 const chalk = require('chalk');
 const execa = require('execa');
@@ -15,14 +16,6 @@ const { isWin } = require('./utils/os');
 
 const options = {};
 const projectName = 'portfolio';
-
-/**
- *  Display Errors
- */
-const flashError = message => {
-	console.error(chalk.bold.red(`✖ ${message}`));
-	process.exit(1);
-};
 
 /**
  *  CLI arguments validator
@@ -74,6 +67,14 @@ const validate = _options => {
 		}
 	}
 	return null;
+};
+
+/**
+ *  Display Errors
+ */
+const flashError = message => {
+	console.error(chalk.bold.red(`✖ ${message}`));
+	process.exit(1);
 };
 
 /**
@@ -145,8 +146,7 @@ const initializeCLI = (_options, input) => {
 	// Run validators to CLI input flags
 	const err = validate(_options);
 	if (err) {
-		flashError(err);
-		return;
+		return flashError(err);
 	}
 
 	const { token = '', repo, version } = options;
@@ -159,17 +159,18 @@ const initializeCLI = (_options, input) => {
 	// command `generate`
 	const generate = input[0];
 	if (!generate) {
-		flashError('Error! generate is a required field.');
-		return;
+		return flashError('Error! generate is a required field.');
 	}
 
 	if (repo) {
 		if (!token) {
-			flashError('Error: creating repository needs token. Set --token');
+			return flashError('Error: creating repository needs token. Set --token');
 		}
 	}
 
-	// ToDo: check if directory exists(exit on true)
+	if (fs.existsSync(projectName)) {
+		return flashError(`Error: Directory ${chalk.cyan.bold(projectName)} already exists in path!`);
+	}
 
 	fetchTemplate();
 };
