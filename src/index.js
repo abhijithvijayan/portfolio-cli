@@ -2,6 +2,7 @@
  *  @author abhijithvijayan <abhijithvijayan.in>
  */
 
+const path = require('path');
 const chalk = require('chalk');
 const execa = require('execa');
 const isObject = require('validate.io-object');
@@ -10,6 +11,7 @@ const isBoolean = require('validate.io-boolean-primitive');
 
 const pkg = require('../package.json');
 const Spinner = require('./utils/spinner');
+const { isWin } = require('./utils/os');
 
 /**
  *  Display Errors
@@ -81,6 +83,10 @@ const showInitialInstructions = () => {
 			)}`
 		)
 	);
+
+	// Remove `.git` folder
+	const OsRemoveCmd = isWin ? 'rmdir /s /q' : 'rm -rf';
+	execa(`${OsRemoveCmd} ${path.join(projectName, '.git')}`, { shell: true });
 
 	// ToDo: Initial commit files
 };
