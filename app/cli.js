@@ -13,8 +13,8 @@ const isBoolean = require('validate.io-boolean-primitive');
 const pkg = require('../package.json');
 const { isWin } = require('./utils/os');
 const Spinner = require('./utils/spinner');
-const flashError = require('./utils/displayMessages');
 const servePortfolioTemplate = require('./serve');
+const flashError = require('./utils/displayMessages');
 const validateDependencyInstallation = require('./utils/install');
 
 const options = {};
@@ -89,7 +89,9 @@ const showInitialCommandsToUser = destination => {
 	console.log(chalk.default(`Initialized a git repository.`));
 	console.log();
 	console.log(
-		chalk.default(`Success! Created test at ${destination}\nInside that directory, you can run several commands:`)
+		chalk.default(
+			`Success! Created ${portfolioDir} at ${destination}\nInside that directory, you can run several commands:`
+		)
 	);
 	console.log();
 	console.log(chalk.cyan.bold(`  yarn dev`));
@@ -133,7 +135,6 @@ const fetchPortfolioTemplate = async () => {
 
 /**
  *	Driver Function
- *
  */
 const initializeCLI = (_options, userInputs) => {
 	// Run validators to CLI input flags
