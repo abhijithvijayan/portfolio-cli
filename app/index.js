@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const meow = require('meow');
-const initializeCLI = require('./src/');
+const initializeCLI = require('./cli');
 
 const cli = meow(
 	`
