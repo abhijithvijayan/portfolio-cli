@@ -34,6 +34,7 @@ const writeConfigFileToFolder = async () => {
 		`  "generatedOn": "${currentDate}"`,
 		'}',
 	];
+
 	await writeFileAsync('portfolio-cli.json', cliConfigContent.join('\n').toString());
 };
 
@@ -70,6 +71,7 @@ const fetchPortfolioTemplate = async destination => {
 		fetchSpinner.fail('Something went wrong');
 		throw err;
 	}
+
 	fetchSpinner.stop();
 };
 
@@ -96,7 +98,9 @@ const generatePortfolio = async () => {
 const initializeCLI = async (_options, userInputs) => {
 	// Run validators to CLI input flags
 	const err = argumentValidator(_options);
-	if (err) return flashError(err);
+	if (err) {
+		return flashError(err);
+	}
 
 	const { token = '', repo, version } = options;
 
@@ -109,19 +113,26 @@ const initializeCLI = async (_options, userInputs) => {
 	let generate = false;
 	let serve = false;
 
-	if (!firstInput || (firstInput !== 'generate' && firstInput !== 'serve'))
+	if (!firstInput || (firstInput !== 'generate' && firstInput !== 'serve')) {
 		return flashError('Error: Unknown input fields. Please provide a valid argument.');
+	}
 
-	if (firstInput === 'generate') generate = true;
-	else if (firstInput === 'serve') serve = true;
+	if (firstInput === 'generate') {
+		generate = true;
+	} else if (firstInput === 'serve') {
+		serve = true;
+	}
 
 	// ToDo: Feature to be worked on later
 	if (repo) {
-		if (!token) return flashError('Error: Creating repository needs token. Set --token');
+		if (!token) {
+			return flashError('Error: Creating repository needs token. Set --token');
+		}
 	}
 
-	if (fs.existsSync(portfolioDir) && !serve)
+	if (fs.existsSync(portfolioDir) && !serve) {
 		return flashError(`Error: Directory ${chalk.cyan.bold(portfolioDir)} already exists in path!`);
+	}
 
 	if (generate) {
 		await generatePortfolio();

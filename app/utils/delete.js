@@ -8,18 +8,31 @@ const { readFileAsync, writeFileAsync } = require('./fs');
 const deleteStrayFilesAndFolders = async () => {
 	const deleteCommand = isWin ? 'del' : 'rm';
 
-	// delete .kodiak.toml
-	if (fs.existsSync('.kodiak.toml')) execa(`${deleteCommand} .kodiak.toml`, { shell: true });
-	// delete CONTRIBUTING.md
-	if (fs.existsSync('CONTRIBUTING.md')) execa(`${deleteCommand} CONTRIBUTING.md`, { shell: true });
-	// delete CODE_OF_CONDUCT.md
-	if (fs.existsSync('CODE_OF_CONDUCT.md')) execa(`${deleteCommand} CODE_OF_CONDUCT.md`, { shell: true });
+	if (fs.existsSync('.kodiak.toml')) {
+		execa(`${deleteCommand} .kodiak.toml`, { shell: true });
+	}
+
+	if (fs.existsSync('CONTRIBUTING.md')) {
+		execa(`${deleteCommand} CONTRIBUTING.md`, { shell: true });
+	}
+
+	if (fs.existsSync('CODE_OF_CONDUCT.md')) {
+		execa(`${deleteCommand} CODE_OF_CONDUCT.md`, { shell: true });
+	}
+
 	// overwrite `config/index.js` with `config/sample.js`
 	if (fs.existsSync('config/index.js')) {
 		await writeFileAsync('config/index.js', await readFileAsync('config/sample.js'));
 	}
-	// delete public/resume.pdf
-	if (fs.existsSync('public/resume.pdf')) execa(`${deleteCommand} public/resume.pdf`, { shell: true });
+
+	if (fs.existsSync('public/resume.pdf')) {
+		execa(`${deleteCommand} public/resume.pdf`, { shell: true });
+	}
+
+	// TODO:
+	// update public/manifest.json
+	// delete/replace README.md
+
 	/**
 	 *  delete markdown/** except sample.md
 	 *  delete public/images
@@ -47,9 +60,6 @@ const deleteStrayFilesAndFolders = async () => {
 		'!markdown/contact',
 		'!markdown/contact/sample.md',
 	]);
-	// TODO:
-	// update public/manifest.json
-	// delete/replace README.md
 };
 
 module.exports = deleteStrayFilesAndFolders;

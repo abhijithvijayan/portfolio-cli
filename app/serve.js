@@ -21,6 +21,7 @@ const installPackages = async () => {
 		installDepsSpinner.fail(`Something went wrong. Couldn't install packages!`);
 		throw err;
 	}
+
 	installDepsSpinner.succeed(`Success! You are good to go.`);
 };
 
@@ -29,14 +30,17 @@ const installPackages = async () => {
  */
 const servePortfolioTemplate = async portfolioDir => {
 	// check if `portfolio-cli.json` exists
-	if (!fs.existsSync('portfolio-cli.json'))
+	if (!fs.existsSync('portfolio-cli.json')) {
 		return flashError(`Error: Directory ${chalk.cyan.bold(portfolioDir)} doesn't have portfolio config file`);
+	}
 
 	// return if fetch wasn't successful
 	const fileContent = await readFileAsync(`portfolio-cli.json`);
 	const { fetch } = JSON.parse(fileContent.toString());
-	if (!fetch)
+
+	if (!fetch) {
 		return flashError(`Error: Directory ${chalk.cyan.bold(portfolioDir)} doesn't have required template files`);
+	}
 
 	await validateDependencyInstallation('yarn --version');
 	await installPackages();

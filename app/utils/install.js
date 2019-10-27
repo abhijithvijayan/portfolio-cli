@@ -18,6 +18,7 @@ const installGit = async () => {
 		// ToDo: show installation info
 	} else {
 		const packageManager = isLinux ? 'apt' : 'brew';
+
 		// eslint-disable-next-line no-useless-catch
 		try {
 			await execa('sudo apt update', { stdio: 'inherit', shell: true });
@@ -39,10 +40,11 @@ const installYarn = async () => {
 		// ToDo: show installation info
 	} else {
 		const packageManager = isLinux ? 'apt' : 'brew';
+
 		// eslint-disable-next-line no-useless-catch
 		try {
 			await execa('sudo apt update', { stdio: 'inherit', shell: true });
-			// ToDo: If needed, configure the repository first
+			// ToDo: If needed, configure the yarn repository first
 			await execa(`${packageManager} install yarn`, { stdio: 'inherit', shell: true });
 			// show success message
 		} catch (err) {
@@ -60,8 +62,11 @@ const installDependency = async dependency => {
 	spinner.start();
 
 	// Install dependencies
-	if (dependency === 'git help -a') await installGit();
-	else if (dependency === 'yarn --version') await installYarn();
+	if (dependency === 'git help -a') {
+		await installGit();
+	} else if (dependency === 'yarn --version') {
+		await installYarn();
+	}
 };
 
 /**
