@@ -6,65 +6,17 @@ const fs = require('fs');
 const path = require('path');
 const chalk = require('chalk');
 const execa = require('execa');
-const isObject = require('validate.io-object');
-const isString = require('validate.io-string-primitive');
-const isBoolean = require('validate.io-boolean-primitive');
 
 const pkg = require('../package.json');
 const { isWin } = require('./utils/os');
 const Spinner = require('./utils/spinner');
 const servePortfolioTemplate = require('./serve');
-const deleteStrayFilesAndFolders = require('./utils/delete');
 const flashError = require('./utils/displayMessages');
+const argumentValidator = require('./utils/validate');
+const deleteStrayFilesAndFolders = require('./utils/delete');
 const validateDependencyInstallation = require('./utils/install');
 
-const options = {};
 const portfolioDir = 'portfolio';
-
-/**
- *  CLI arguments validator
- */
-const validate = _options => {
-	if (!isObject(_options)) {
-		return new TypeError(`invalid input argument. Options argument must be an object. Value: \`${_options}\`.`);
-	}
-	if (
-		Object.prototype.hasOwnProperty.call(_options, 'generate') ||
-		Object.prototype.hasOwnProperty.call(_options, 'g')
-	) {
-		options.generate = _options.generate || _options.g;
-		if (!isBoolean(options.generate))
-			return new TypeError(`invalid option. Generate option must be a boolean primitive.`);
-	}
-	if (
-		Object.prototype.hasOwnProperty.call(_options, 'token') ||
-		Object.prototype.hasOwnProperty.call(_options, 't')
-	) {
-		options.token = _options.token || _options.t;
-		if (!isString(options.token)) return new TypeError(`invalid option. Token must be a string primitive.`);
-	}
-	if (Object.prototype.hasOwnProperty.call(_options, 'repo') || Object.prototype.hasOwnProperty.call(_options, 'r')) {
-		options.repo = _options.repo || _options.r;
-		if (!isString(options.repo)) return new TypeError(`invalid option. Repo name must be a string primitive.`);
-	}
-	if (
-		Object.prototype.hasOwnProperty.call(_options, 'message') ||
-		Object.prototype.hasOwnProperty.call(_options, 'm')
-	) {
-		options.message = _options.message || _options.m;
-		if (!isString(options.message))
-			return new TypeError(`invalid option. Commit message must be a string primitive.`);
-	}
-	if (
-		Object.prototype.hasOwnProperty.call(_options, 'version') ||
-		Object.prototype.hasOwnProperty.call(_options, 'v')
-	) {
-		options.version = _options.version || _options.v;
-		if (!isBoolean(options.version))
-			return new TypeError(`invalid option. Version option must be a boolean primitive.`);
-	}
-	return null;
-};
 
 /**
  *  Performs initial commit
@@ -130,18 +82,20 @@ const fetchPortfolioTemplate = async () => {
 	// change into directory
 	process.chdir(portfolioDir);
 
-	// ToDo: remove user-specific files
 	deleteStrayFilesAndFolders();
 	performInitialCommit();
 	showInitialCommandsToUser(destination);
 };
+
+// eslint-disable-next-line prefer-const
+let options = {};
 
 /**
  *	Driver Function
  */
 const initializeCLI = (_options, userInputs) => {
 	// Run validators to CLI input flags
-	const err = validate(_options);
+	const err = argumentValidator(_options);
 	if (err) return flashError(err);
 
 	const { token = '', repo, version } = options;
@@ -176,4 +130,5 @@ const initializeCLI = (_options, userInputs) => {
 	}
 };
 
+module.exports.options = options;
 module.exports = initializeCLI;
