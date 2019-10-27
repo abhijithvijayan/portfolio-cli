@@ -10,6 +10,8 @@ const execa = require('execa');
 const pkg = require('../package.json');
 const { isWin } = require('./utils/os');
 const Spinner = require('./utils/spinner');
+const currentDate = require('./utils/moment');
+const { writeFileAsync } = require('./utils/fs');
 const servePortfolioTemplate = require('./serve');
 const flashError = require('./utils/displayMessages');
 const argumentValidator = require('./utils/validate');
@@ -17,6 +19,9 @@ const deleteStrayFilesAndFolders = require('./utils/delete');
 const validateDependencyInstallation = require('./utils/install');
 
 const portfolioDir = 'portfolio';
+// eslint-disable-next-line prefer-const
+let options = {};
+let cliConfigContent = {};
 
 /**
  *  Performs initial commit
@@ -59,6 +64,10 @@ const showInitialCommandsToUser = destination => {
 	console.log(chalk.cyan.bold(`  abhijithvijayan-portfolio serve`));
 };
 
+const writeConfigFile = async () => {
+	await writeFileAsync('portfolio-cli.json', cliConfigContent.join('\n').toString());
+};
+
 /**
  *  Fetch and Clone the template
  */
@@ -67,28 +76,28 @@ const fetchPortfolioTemplate = async () => {
 
 	const repoURL = 'https://github.com/abhijithvijayan/abhijithvijayan.in';
 	const destination = path.resolve(process.cwd(), portfolioDir);
-	const fetchSpinner = new Spinner(`Generating a new portfolio site in ${destination}`);
 
+	const fetchSpinner = new Spinner(`Generating a new portfolio site in ${destination}`);
 	console.log();
 	fetchSpinner.start();
+
 	try {
 		await execa('git', ['clone', repoURL, '--branch', 'master', '--single-branch', portfolioDir]);
 	} catch (err) {
 		fetchSpinner.fail('Something went wrong');
 		throw err;
 	}
+
 	fetchSpinner.stop();
 
 	// change into directory
 	process.chdir(portfolioDir);
 
 	deleteStrayFilesAndFolders();
+	writeConfigFile();
 	performInitialCommit();
 	showInitialCommandsToUser(destination);
 };
-
-// eslint-disable-next-line prefer-const
-let options = {};
 
 /**
  *	Driver Function
@@ -122,6 +131,15 @@ const initializeCLI = (_options, userInputs) => {
 	}
 	if (fs.existsSync(portfolioDir))
 		return flashError(`Error: Directory ${chalk.cyan.bold(portfolioDir)} already exists in path!`);
+
+	// Build content for CLI config file
+	cliConfigContent = [
+		'{',
+		`  "name": "${portfolioDir}",`,
+		`  "version": "${pkg.version}",`,
+		`  "generatedAt": "${currentDate}"`,
+		'}',
+	];
 
 	if (generate) {
 		fetchPortfolioTemplate();

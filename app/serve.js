@@ -4,6 +4,8 @@ const Spinner = require('./utils/spinner');
 const validateDependencyInstallation = require('./utils/install');
 
 const servePortfolioTemplate = async templateDir => {
+	// ToDo: check if `portfolio-cli.json` exists before running commands
+
 	await validateDependencyInstallation('yarn --version');
 
 	const installDepsSpinner = new Spinner('Installing packages. This might take a couple of minutes.').start();
