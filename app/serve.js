@@ -1,10 +1,22 @@
+const fs = require('fs');
 const execa = require('execa');
-const Spinner = require('./utils/spinner');
+const chalk = require('chalk');
 
+const Spinner = require('./utils/spinner');
+const { readFileAsync } = require('./utils/fs');
+const { flashError } = require('./utils/displayMessages');
 const validateDependencyInstallation = require('./utils/install');
 
-const servePortfolioTemplate = async templateDir => {
-	// ToDo: check if `portfolio-cli.json` exists before running commands
+const servePortfolioTemplate = async portfolioDir => {
+	// check if `portfolio-cli.json` exists before running commands
+	if (!fs.existsSync('portfolio-cli.json'))
+		return flashError(`Error: Directory ${chalk.cyan.bold(portfolioDir)} doesn't have portfolio config file`);
+
+	// return if fetch wasn't successful
+	const fileContent = await readFileAsync(`portfolio-cli.json`);
+	const { fetch } = JSON.parse(fileContent.toString());
+	if (!fetch)
+		return flashError(`Error: Directory ${chalk.cyan.bold(portfolioDir)} doesn't have required template files`);
 
 	await validateDependencyInstallation('yarn --version');
 
