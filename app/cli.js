@@ -102,7 +102,7 @@ const initializeCLI = (_options, userInputs) => {
 	if (repo) {
 		if (!token) return flashError('Error: creating repository needs token. Set --token');
 	}
-	if (fs.existsSync(portfolioDir))
+	if (fs.existsSync(portfolioDir) && !serve)
 		return flashError(`Error: Directory ${chalk.cyan.bold(portfolioDir)} already exists in path!`);
 
 	// Build content for CLI config file
@@ -110,6 +110,7 @@ const initializeCLI = (_options, userInputs) => {
 		'{',
 		`  "name": "${portfolioDir}",`,
 		`  "version": "${pkg.version}",`,
+		`  "fetch": true,`,
 		`  "generatedAt": "${currentDate}"`,
 		'}',
 	];
