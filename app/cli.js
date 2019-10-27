@@ -14,6 +14,7 @@ const pkg = require('../package.json');
 const { isWin } = require('./utils/os');
 const Spinner = require('./utils/spinner');
 const servePortfolioTemplate = require('./serve');
+const deleteStrayFiles = require('./utils/delete');
 const flashError = require('./utils/displayMessages');
 const validateDependencyInstallation = require('./utils/install');
 
@@ -73,9 +74,6 @@ const performInitialCommit = () => {
 	const OsRemoveCmd = isWin ? 'rmdir /s /q' : 'rm -rf';
 	execa(`${OsRemoveCmd} ${path.join(portfolioDir, '.git')}`, { shell: true });
 
-	// change into directory
-	process.chdir(portfolioDir);
-
 	const commands = ['init', 'add%.', 'commit%-m "⚡️ Initial commit from abhijithvijayan-portfolio CLI"'];
 	commands.forEach(command => {
 		return execa.sync('git', command.split('%'));
@@ -129,6 +127,11 @@ const fetchPortfolioTemplate = async () => {
 	}
 	fetchSpinner.stop();
 
+	// change into directory
+	process.chdir(portfolioDir);
+
+	// ToDo: remove user-specific files
+	deleteStrayFiles();
 	performInitialCommit();
 	showInitialCommandsToUser(destination);
 };
