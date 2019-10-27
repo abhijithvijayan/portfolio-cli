@@ -4,8 +4,8 @@ const chalk = require('chalk');
 const inquirer = require('inquirer');
 
 const Spinner = require('./spinner');
-const flashError = require('./displayMessages');
 const { isLinux, isWin } = require('./os');
+const flashError = require('./displayMessages');
 
 const spinner = new Spinner();
 
@@ -53,6 +53,18 @@ const installYarn = async () => {
 };
 
 /**
+ *  Install the missing dependency
+ */
+const installDependency = async dependency => {
+	spinner.text = `Installing ${dependency}`;
+	spinner.start();
+
+	// Install dependencies
+	if (dependency === 'git help -a') await installGit();
+	else if (dependency === 'yarn --version') await installYarn();
+};
+
+/**
  *  Run dependency command to see if it is installed
  */
 const checkIfDependencyIsInstalled = async command => {
@@ -65,33 +77,22 @@ const checkIfDependencyIsInstalled = async command => {
 };
 
 /**
- *  Installation Validator | Installer
+ *  Installation Validator
  */
 const validateDependencyInstallation = async dependency => {
 	const isInstalled = await checkIfDependencyIsInstalled(dependency);
+
 	if (!isInstalled) {
-		const { depToInstall } = await inquirer.prompt([
+		const { shouldInstallDep } = await inquirer.prompt([
 			{
 				type: 'confirm',
-				name: 'depToInstall',
+				name: 'shouldInstallDep',
 				message: `Sorry, ${dependency} is not installed on your system, Do you want to install it?`,
 			},
 		]);
-		if (depToInstall) {
-			spinner.text = `Installing ${dependency}`;
-			spinner.start();
 
-			// Install dependencies
-			switch (dependency) {
-				case 'git help -a': {
-					await installGit();
-					break;
-				}
-				case 'yarn --version': {
-					await installYarn();
-					break;
-				}
-			}
+		if (shouldInstallDep) {
+			await installDependency(dependency);
 		} else {
 			flashError(` Warning:- ${chalk.cyan.bold(`${dependency} is required to be installed`)}`);
 		}

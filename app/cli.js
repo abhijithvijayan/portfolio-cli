@@ -26,6 +26,14 @@ const portfolioDir = 'portfolio';
  *  Write CLI config file locally to project
  */
 const writeConfigFileToFolder = async () => {
+	cliConfigContent = [
+		'{',
+		`  "name": "${portfolioDir}",`,
+		`  "version": "${pkg.version}",`,
+		`  "fetch": true,`,
+		`  "generatedOn": "${currentDate}"`,
+		'}',
+	];
 	await writeFileAsync('portfolio-cli.json', cliConfigContent.join('\n').toString());
 };
 
@@ -114,16 +122,6 @@ const initializeCLI = async (_options, userInputs) => {
 
 	if (fs.existsSync(portfolioDir) && !serve)
 		return flashError(`Error: Directory ${chalk.cyan.bold(portfolioDir)} already exists in path!`);
-
-	// Build content for CLI config file
-	cliConfigContent = [
-		'{',
-		`  "name": "${portfolioDir}",`,
-		`  "version": "${pkg.version}",`,
-		`  "fetch": true,`,
-		`  "generatedAt": "${currentDate}"`,
-		'}',
-	];
 
 	if (generate) {
 		await generatePortfolio();
