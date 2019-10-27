@@ -1,4 +1,5 @@
 const fs = require('fs');
+const del = require('del');
 const execa = require('execa');
 const chalk = require('chalk');
 
@@ -18,6 +19,8 @@ const deleteStrayFiles = async () => {
 	if (fs.existsSync('config/index.js')) {
 		await writeFileAsync('config/index.js', await readFileAsync('config/sample.js'));
 	}
+	// 5. delete public/resume.pdf
+	if (fs.existsSync('public/resume.pdf')) execa(`${deleteCommand} public/resume.pdf`, { shell: true });
 	// update public/manifest.json
 	// delete/replace README.md
 	// delete markdown/**/* except sample.md
