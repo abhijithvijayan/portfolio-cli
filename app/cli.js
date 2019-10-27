@@ -18,10 +18,16 @@ const deleteStrayFilesAndFolders = require('./utils/delete');
 const validateDependencyInstallation = require('./utils/install');
 const { flashError, showInitialCommandsToUser } = require('./utils/displayMessages');
 
-const portfolioDir = 'portfolio';
-// eslint-disable-next-line prefer-const
-let options = {};
+const options = {};
 let cliConfigContent = {};
+const portfolioDir = 'portfolio';
+
+/**
+ *  Write CLI config file locally to project
+ */
+const writeConfigFileToFolder = async () => {
+	await writeFileAsync('portfolio-cli.json', cliConfigContent.join('\n').toString());
+};
 
 /**
  *  Performs initial commit
@@ -37,18 +43,14 @@ const performInitialCommit = () => {
 	});
 };
 
-const writeConfigFile = async () => {
-	await writeFileAsync('portfolio-cli.json', cliConfigContent.join('\n').toString());
-};
-
 /**
  *  Fetch and Clone the template
  */
-const fetchPortfolioTemplate = async () => {
+const fetchPortfolioTemplate = async destination => {
+	// validate git installation
 	await validateDependencyInstallation('git help -a');
 
 	const repoURL = 'https://github.com/abhijithvijayan/abhijithvijayan.in';
-	const destination = path.resolve(process.cwd(), portfolioDir);
 
 	const fetchSpinner = new Spinner(`Generating a new portfolio site in ${destination}`);
 	console.log();
@@ -60,22 +62,30 @@ const fetchPortfolioTemplate = async () => {
 		fetchSpinner.fail('Something went wrong');
 		throw err;
 	}
-
 	fetchSpinner.stop();
+};
+
+/**
+ *  Generator Function
+ */
+const generatePortfolio = async () => {
+	const destination = path.resolve(process.cwd(), portfolioDir);
+	await fetchPortfolioTemplate(destination);
 
 	// change into directory
 	process.chdir(portfolioDir);
 
-	deleteStrayFilesAndFolders();
-	writeConfigFile();
-	performInitialCommit();
+	await deleteStrayFilesAndFolders();
+	await writeConfigFileToFolder();
+	await performInitialCommit();
+
 	showInitialCommandsToUser({ destination, portfolioDir });
 };
 
 /**
  *	Driver Function
  */
-const initializeCLI = (_options, userInputs) => {
+const initializeCLI = async (_options, userInputs) => {
 	// Run validators to CLI input flags
 	const err = argumentValidator(_options);
 	if (err) return flashError(err);
@@ -83,8 +93,8 @@ const initializeCLI = (_options, userInputs) => {
 	const { token = '', repo, version } = options;
 
 	if (version) {
-		console.log(chalk.bold.green(pkg.version));
-		return pkg.version;
+		console.log(chalk.default(pkg.version));
+		return;
 	}
 
 	const firstInput = userInputs[0];
@@ -92,16 +102,16 @@ const initializeCLI = (_options, userInputs) => {
 	let serve = false;
 
 	if (!firstInput || (firstInput !== 'generate' && firstInput !== 'serve'))
-		return flashError('Error! Unknown input fields');
+		return flashError('Error: Unknown input fields. Please provide a valid argument.');
 
 	if (firstInput === 'generate') generate = true;
 	else if (firstInput === 'serve') serve = true;
 
-	if (!generate && !serve) return flashError('Error: Input fields missing');
-
+	// ToDo: Feature to be worked on later
 	if (repo) {
-		if (!token) return flashError('Error: creating repository needs token. Set --token');
+		if (!token) return flashError('Error: Creating repository needs token. Set --token');
 	}
+
 	if (fs.existsSync(portfolioDir) && !serve)
 		return flashError(`Error: Directory ${chalk.cyan.bold(portfolioDir)} already exists in path!`);
 
@@ -116,9 +126,9 @@ const initializeCLI = (_options, userInputs) => {
 	];
 
 	if (generate) {
-		fetchPortfolioTemplate();
+		await generatePortfolio();
 	} else if (serve) {
-		servePortfolioTemplate(portfolioDir);
+		await servePortfolioTemplate(portfolioDir);
 	}
 };
 

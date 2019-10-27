@@ -47,6 +47,7 @@ const deleteStrayFilesAndFolders = async () => {
 		'!markdown/contact',
 		'!markdown/contact/sample.md',
 	]);
+	// TODO:
 	// update public/manifest.json
 	// delete/replace README.md
 };

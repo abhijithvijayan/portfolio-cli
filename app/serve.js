@@ -20,7 +20,9 @@ const servePortfolioTemplate = async portfolioDir => {
 
 	await validateDependencyInstallation('yarn --version');
 
-	const installDepsSpinner = new Spinner('Installing packages. This might take a couple of minutes.').start();
+	console.log();
+	const installDepsSpinner = new Spinner('Installing packages. This might take a couple of minutes.');
+	installDepsSpinner.start();
 
 	try {
 		await execa('yarn', ['install']);
@@ -28,7 +30,7 @@ const servePortfolioTemplate = async portfolioDir => {
 		installDepsSpinner.fail(`Something went wrong. Couldn't install packages!`);
 		throw err;
 	}
-	installDepsSpinner.succeed(`Success!`);
+	installDepsSpinner.succeed(`Success! You are good to go.`);
 
 	// ToDo: Serve on port
 };
