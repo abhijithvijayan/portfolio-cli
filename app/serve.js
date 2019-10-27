@@ -6,8 +6,7 @@ const validateDependencyInstallation = require('./utils/install');
 const servePortfolioTemplate = async templateDir => {
 	await validateDependencyInstallation('yarn --version');
 
-	const installDepsSpinner = new Spinner('Installing packages. This might take a couple of minutes.');
-	installDepsSpinner.start();
+	const installDepsSpinner = new Spinner('Installing packages. This might take a couple of minutes.').start();
 
 	try {
 		await execa('yarn', ['install']);

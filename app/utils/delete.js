@@ -1,25 +1,24 @@
 const fs = require('fs');
 const del = require('del');
 const execa = require('execa');
-const chalk = require('chalk');
 
 const { isWin } = require('./os');
 const { readFileAsync, writeFileAsync } = require('./fs');
 
-const deleteStrayFiles = async () => {
+const deleteStrayFilesAndFolders = async () => {
 	const deleteCommand = isWin ? 'del' : 'rm';
 
-	// 1. delete .kodiak.toml
+	// delete .kodiak.toml
 	if (fs.existsSync('.kodiak.toml')) execa(`${deleteCommand} .kodiak.toml`, { shell: true });
-	// 2. delete CONTRIBUTING.md
+	// delete CONTRIBUTING.md
 	if (fs.existsSync('CONTRIBUTING.md')) execa(`${deleteCommand} CONTRIBUTING.md`, { shell: true });
-	// 3. delete CODE_OF_CONDUCT.md
+	// delete CODE_OF_CONDUCT.md
 	if (fs.existsSync('CODE_OF_CONDUCT.md')) execa(`${deleteCommand} CODE_OF_CONDUCT.md`, { shell: true });
-	// 4.overwrite `config/index.js` with `config/sample.js`
+	// overwrite `config/index.js` with `config/sample.js`
 	if (fs.existsSync('config/index.js')) {
 		await writeFileAsync('config/index.js', await readFileAsync('config/sample.js'));
 	}
-	// 5. delete public/resume.pdf
+	// delete public/resume.pdf
 	if (fs.existsSync('public/resume.pdf')) execa(`${deleteCommand} public/resume.pdf`, { shell: true });
 	/**
 	 *  delete markdown/** except sample.md
@@ -52,4 +51,4 @@ const deleteStrayFiles = async () => {
 	// delete/replace README.md
 };
 
-module.exports = deleteStrayFiles;
+module.exports = deleteStrayFilesAndFolders;

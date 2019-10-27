@@ -14,7 +14,7 @@ const pkg = require('../package.json');
 const { isWin } = require('./utils/os');
 const Spinner = require('./utils/spinner');
 const servePortfolioTemplate = require('./serve');
-const deleteStrayFiles = require('./utils/delete');
+const deleteStrayFilesAndFolders = require('./utils/delete');
 const flashError = require('./utils/displayMessages');
 const validateDependencyInstallation = require('./utils/install');
 
@@ -131,7 +131,7 @@ const fetchPortfolioTemplate = async () => {
 	process.chdir(portfolioDir);
 
 	// ToDo: remove user-specific files
-	deleteStrayFiles();
+	deleteStrayFilesAndFolders();
 	performInitialCommit();
 	showInitialCommandsToUser(destination);
 };
