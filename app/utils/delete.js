@@ -29,8 +29,64 @@ const deleteStrayFilesAndFolders = async () => {
 		execa(`${deleteCommand} public/resume.pdf`, { shell: true });
 	}
 
+	// overwrite public/manifest.json
+	if (fs.existsSync('public/manifest.json')) {
+		const sampleManifestContent = {
+			name: 'Developer',
+			short_name: 'Developer',
+			icons: [
+				{
+					src: '',
+					sizes: '72x72',
+					type: 'image/png',
+				},
+				{
+					src: '',
+					sizes: '96x96',
+					type: 'image/png',
+				},
+				{
+					src: '',
+					sizes: '128x128',
+					type: 'image/png',
+				},
+				{
+					src: '',
+					sizes: '144x144',
+					type: 'image/png',
+				},
+				{
+					src: '',
+					sizes: '152x152',
+					type: 'image/png',
+				},
+				{
+					src: '',
+					sizes: '192x192',
+					type: 'image/png',
+				},
+				{
+					src: '',
+					sizes: '384x384',
+					type: 'image/png',
+				},
+				{
+					src: '',
+					sizes: '512x512',
+					type: 'image/png',
+				},
+			],
+			theme_color: '#0a192f',
+			background_color: '#020c1b',
+			start_url: '/',
+			display: 'standalone',
+			orientation: 'portrait',
+		};
+
+		await writeFileAsync('public/manifest.json', JSON.stringify(sampleManifestContent));
+	}
+
 	// TODO:
-	// update public/manifest.json
 	// delete/replace README.md
 
 	/**
