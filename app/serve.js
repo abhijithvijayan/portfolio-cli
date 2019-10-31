@@ -31,7 +31,7 @@ const installPackages = async () => {
 const servePortfolioTemplate = async portfolioDir => {
 	// check if `portfolio-cli.json` exists
 	if (!fs.existsSync('portfolio-cli.json')) {
-		return flashError(`Error: Directory ${chalk.cyan.bold(portfolioDir)} doesn't have portfolio config file`);
+		return flashError(`Error: Current directory doesn't have portfolio config file`);
 	}
 
 	// return if fetch wasn't successful
