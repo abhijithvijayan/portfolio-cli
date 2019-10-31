@@ -35,4 +35,18 @@ const showInitialCommandsToUser = ({ destination, portfolioDir }) => {
 	console.log(chalk.cyan.bold(`  abhijithvijayan-portfolio serve`));
 };
 
-module.exports = { flashError, showInitialCommandsToUser };
+const showFinalInstructionsToUser = () => {
+	console.log();
+	console.log(chalk.green.bold(`  Warning!`));
+	console.log(chalk.default(`   Do not delete or modify the ${chalk.cyan.bold(`portfolio-cli.json`)} file`));
+	console.log();
+	console.log(
+		chalk.default(
+			`What Next? We suggest that you read the instructions in ${chalk.cyan.bold(`README.md`)} to get started.`
+		)
+	);
+	console.log();
+	console.log(chalk.default(`Thanks for using ${chalk.cyan.bold(`abhijithvijayan-portflio CLI`)}`));
+};
+
+module.exports = { flashError, showInitialCommandsToUser, showFinalInstructionsToUser };

@@ -4,7 +4,7 @@ const chalk = require('chalk');
 
 const Spinner = require('./utils/spinner');
 const { readFileAsync } = require('./utils/fs');
-const { flashError } = require('./utils/displayMessages');
+const { flashError, showFinalInstructionsToUser } = require('./utils/displayMessages');
 const validateDependencyInstallation = require('./utils/install');
 
 /**
@@ -22,7 +22,7 @@ const installPackages = async () => {
 		throw err;
 	}
 
-	installDepsSpinner.succeed(`Success! You are good to go.`);
+	installDepsSpinner.succeed(`Success! Your new portfolio site is generated and ready to use.`);
 };
 
 /**
@@ -44,6 +44,7 @@ const servePortfolioTemplate = async portfolioDir => {
 
 	await validateDependencyInstallation('yarn --version');
 	await installPackages();
+	showFinalInstructionsToUser();
 
 	// ToDo: Serve on port
 };
