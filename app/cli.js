@@ -31,7 +31,8 @@ const writeConfigFileToFolder = async () => {
 		`  "name": "${portfolioDir}",`,
 		`  "version": "${pkg.version}",`,
 		`  "fetch": true,`,
-		`  "generatedOn": "${currentDate}"`,
+		`  "generatedOn": "${currentDate}",`,
+		`  "remote": "https://github.com/abhijithvijayan/portfolio-cli"`,
 		'}',
 	];
 
