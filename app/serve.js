@@ -45,8 +45,6 @@ const servePortfolioTemplate = async portfolioDir => {
 	await validateDependencyInstallation('yarn --version');
 	await installPackages();
 	showFinalInstructionsToUser();
-
-	// ToDo: Serve on port
 };
 
 module.exports = servePortfolioTemplate;
