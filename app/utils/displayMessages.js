@@ -46,7 +46,9 @@ const showFinalInstructionsToUser = () => {
 		)
 	);
 	console.log();
-	console.log(chalk.default(`Thanks for using ${chalk.cyan.bold(`abhijithvijayan-portflio CLI`)}`));
+	console.log(chalk.default(`Want to create remote repo as well?`));
+	console.log();
+	console.log(chalk.default(`Run ${chalk.cyan.bold(`npx create-remote-repo portfolio`)}`));
 };
 
 module.exports = { flashError, showInitialCommandsToUser, showFinalInstructionsToUser };
