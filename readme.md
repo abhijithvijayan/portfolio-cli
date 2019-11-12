@@ -4,6 +4,8 @@
 
 [![Build Status](https://travis-ci.com/abhijithvijayan/portfolio-cli.svg?token=bJxrXYoNqDthzrKNTKiz&branch=master)](https://travis-ci.com/abhijithvijayan/portfolio-cli)
 
+<img src="demo.gif" width="752">
+
 ## Install
 
 Ensure you have [Node.js](https://nodejs.org) 8 or later installed. Then run the following:
