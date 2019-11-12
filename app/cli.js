@@ -99,11 +99,12 @@ const generatePortfolio = async () => {
 const initializeCLI = async (_options, userInputs) => {
 	// Run validators to CLI input flags
 	const err = argumentValidator(_options);
+
 	if (err) {
 		return flashError(err);
 	}
 
-	const { token = '', repo, version } = options;
+	const { version } = options;
 
 	if (version) {
 		console.log(chalk.default(pkg.version));
@@ -122,13 +123,6 @@ const initializeCLI = async (_options, userInputs) => {
 		generate = true;
 	} else if (firstInput === 'serve') {
 		serve = true;
-	}
-
-	// ToDo: Feature to be worked on later
-	if (repo) {
-		if (!token) {
-			return flashError('Error: Creating repository needs token. Set --token');
-		}
 	}
 
 	if (fs.existsSync(portfolioDir) && !serve) {

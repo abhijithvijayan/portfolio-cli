@@ -13,9 +13,6 @@ const cli = meow(
 		serve  		Serves the portfolio template locally
 
 	Options
-		-t, --token TEXT       GitHub token
-		-r, --repo TEXT	       repository name
-		-m, --message TEXT     commit message
 		-v, --version          Show the version and exit with code 0
 
   Examples
@@ -25,10 +22,8 @@ const cli = meow(
 		flags: {
 			input: ['generate', 'serve'],
 			boolean: ['version'],
-			string: ['token', 'repo', 'message'],
+			string: [],
 			alias: {
-				r: 'repo',
-				t: 'token',
 				v: 'version',
 			},
 		},
