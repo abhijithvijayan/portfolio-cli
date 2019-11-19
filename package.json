@@ -46,12 +46,12 @@
 		"abhijithvijayan"
 	],
 	"dependencies": {
-		"chalk": "^2.4.2",
+		"chalk": "^3.0.0",
 		"del": "^5.1.0",
-		"execa": "^3.2.0",
+		"execa": "^3.3.0",
 		"inquirer": "^7.0.0",
 		"meow": "^5.0.0",
-		"ora": "^4.0.2",
+		"ora": "^4.0.3",
 		"validate.io-boolean-primitive": "^1.0.0",
 		"validate.io-object": "^1.0.4",
 		"validate.io-string-primitive": "^1.0.1"
@@ -60,16 +60,16 @@
 		"babel-eslint": "10.0.3",
 		"eslint": "^6.6.0",
 		"eslint-config-airbnb": "^18.0.1",
-		"eslint-config-onepass": "1.4.3",
-		"eslint-config-prettier": "^6.5.0",
+		"eslint-config-onepass": "1.4.5",
+		"eslint-config-prettier": "^6.7.0",
 		"eslint-plugin-html": "^6.0.0",
 		"eslint-plugin-import": "^2.18.2",
 		"eslint-plugin-jsx-a11y": "^6.2.3",
 		"eslint-plugin-prettier": "^3.1.1",
 		"eslint-plugin-react": "^7.16.0",
-		"eslint-plugin-react-hooks": "^2.2.0",
-		"husky": "^3.0.9",
-		"lint-staged": "^9.4.2",
-		"prettier": "^1.18.2"
+		"eslint-plugin-react-hooks": "^2.3.0",
+		"husky": "^3.1.0",
+		"lint-staged": "^9.4.3",
+		"prettier": "^1.19.1"
 	}
 }
