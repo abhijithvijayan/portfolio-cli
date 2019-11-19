@@ -32,7 +32,7 @@ const writeConfigFileToFolder = async () => {
 		`  "version": "${pkg.version}",`,
 		`  "fetch": true,`,
 		`  "generatedOn": "${currentDate}",`,
-		`  "remote": "https://github.com/abhijithvijayan/portfolio-cli"`,
+		`  "remote": "https://github.com/abhijithvijayan/abhijithvijayan.in"`,
 		'}',
 	];
 
