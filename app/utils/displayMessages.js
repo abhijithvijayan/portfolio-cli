@@ -12,43 +12,41 @@ const flashError = message => {
  *  Shows next actions to user
  */
 const showInitialCommandsToUser = ({ destination, portfolioDir }) => {
-	console.log(chalk.default(`Initialized a git repository.`));
+	console.log(chalk(`Initialized a git repository.`));
 	console.log();
 	console.log(
-		chalk.default(
+		chalk(
 			`Success! Created ${portfolioDir} at ${destination}\nInside that directory, you can run several commands:`
 		)
 	);
 	console.log();
 	console.log(chalk.cyan.bold(`  yarn dev`));
-	console.log(chalk.default(`    Starts the development server.`));
+	console.log(chalk(`    Starts the development server.`));
 	console.log();
 	console.log(chalk.cyan.bold(`  yarn build`));
-	console.log(chalk.default(`    Bundles the app for production.`));
+	console.log(chalk(`    Bundles the app for production.`));
 	console.log();
 	console.log(chalk.cyan.bold(`  yarn export`));
-	console.log(chalk.default(`    Bundles the app into static files using Next.js static exports.`));
+	console.log(chalk(`    Bundles the app into static files using Next.js static exports.`));
 	console.log();
-	console.log(chalk.default(`We suggest that you begin by typing:`));
+	console.log(chalk(`We suggest that you begin by typing:`));
 	console.log();
-	console.log(chalk.default(`  ${chalk.cyan.bold(`cd`)} ${portfolioDir}`));
+	console.log(chalk(`  ${chalk.cyan.bold(`cd`)} ${portfolioDir}`));
 	console.log(chalk.cyan.bold(`  abhijithvijayan-portfolio serve`));
 };
 
 const showFinalInstructionsToUser = () => {
 	console.log();
 	console.log(chalk.green.bold(`  Warning!`));
-	console.log(chalk.default(`   Do not delete or modify the ${chalk.cyan.bold(`portfolio-cli.json`)} file`));
+	console.log(chalk(`   Do not delete or modify the ${chalk.cyan.bold(`portfolio-cli.json`)} file`));
 	console.log();
 	console.log(
-		chalk.default(
-			`What Next? We suggest that you read the instructions in ${chalk.cyan.bold(`README.md`)} to get started.`
-		)
+		chalk(`What Next? We suggest that you read the instructions in ${chalk.cyan.bold(`README.md`)} to get started.`)
 	);
 	console.log();
-	console.log(chalk.default(`Want to create remote repo as well?`));
+	console.log(chalk(`Want to create remote repo as well?`));
 	console.log();
-	console.log(chalk.default(`Run ${chalk.cyan.bold(`npx create-remote-repo portfolio`)}`));
+	console.log(chalk(`Run ${chalk.cyan.bold(`npx create-remote-repo portfolio`)}`));
 };
 
 module.exports = { flashError, showInitialCommandsToUser, showFinalInstructionsToUser };

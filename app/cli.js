@@ -107,7 +107,7 @@ const initializeCLI = async (_options, userInputs) => {
 	const { version } = options;
 
 	if (version) {
-		console.log(chalk.default(pkg.version));
+		console.log(chalk(pkg.version));
 		return;
 	}
 
