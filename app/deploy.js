@@ -1,7 +1,8 @@
 const fs = require('fs');
 
-const { writeFileAsync } = require('./utils/fs');
+const currentDate = require('./utils/moment');
 const { flashError } = require('./utils/displayMessages');
+const { writeFileAsync, readFileAsync } = require('./utils/fs');
 const { sampleTravisConfigContent } = require('./utils/template');
 
 const setUpDeployConfig = async () => {
@@ -10,9 +11,20 @@ const setUpDeployConfig = async () => {
 		return flashError(`Error: Current directory doesn't have portfolio config file`);
 	}
 
-	// ToDo: add key to config file
-
+	// create travis config file
 	await writeFileAsync('.travis.yml', sampleTravisConfigContent);
+
+	const configFile = await readFileAsync(`portfolio-cli.json`);
+	const configFileContent = JSON.parse(configFile.toString());
+
+	// inject fields to config file
+	configFileContent.deploy = true;
+	configFileContent.provider = 'gh-pages';
+	configFileContent.updatedOn = currentDate;
+
+	const writeFileContent = JSON.stringify(configFileContent, null, 2);
+	// write back the config file
+	await writeFileAsync(`portfolio-cli.json`, writeFileContent);
 };
 
 module.exports = setUpDeployConfig;
