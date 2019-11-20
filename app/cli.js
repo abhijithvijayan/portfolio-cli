@@ -111,11 +111,17 @@ const initializeCLI = async (_options, userInputs) => {
 		return;
 	}
 
-	const firstInput = userInputs[0];
 	let generate = false;
 	let serve = false;
+	let deploy = false;
 
-	if (!firstInput || (firstInput !== 'generate' && firstInput !== 'serve')) {
+	// get user input
+	const firstInput = userInputs[0];
+
+	/**
+	 *  Exit if User's input is invalid
+	 */
+	if (!firstInput || (firstInput !== 'generate' && firstInput !== 'serve' && firstInput !== 'deploy')) {
 		return flashError('Error: Unknown input fields. Please provide a valid argument.');
 	}
 
@@ -123,9 +129,14 @@ const initializeCLI = async (_options, userInputs) => {
 		generate = true;
 	} else if (firstInput === 'serve') {
 		serve = true;
+	} else if (firstInput === 'deploy') {
+		deploy = true;
 	}
 
-	if (fs.existsSync(portfolioDir) && !serve) {
+	/**
+	 *  Exit if directory exists (only for generate command)
+	 */
+	if (fs.existsSync(portfolioDir) && !serve && !deploy) {
 		return flashError(`Error: Directory ${chalk.cyan.bold(portfolioDir)} already exists in path!`);
 	}
 
@@ -133,6 +144,8 @@ const initializeCLI = async (_options, userInputs) => {
 		await generatePortfolio();
 	} else if (serve) {
 		await servePortfolioTemplate(portfolioDir);
+	} else if (deploy) {
+		// ToDo: set up deployment options
 	}
 };
 
