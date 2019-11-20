@@ -10,6 +10,7 @@ const execa = require('execa');
 const pkg = require('../package.json');
 const { isWin } = require('./utils/os');
 const Spinner = require('./utils/spinner');
+const setUpDeployment = require('./deploy');
 const currentDate = require('./utils/moment');
 const { writeFileAsync } = require('./utils/fs');
 const servePortfolioTemplate = require('./serve');
@@ -145,7 +146,7 @@ const initializeCLI = async (_options, userInputs) => {
 	} else if (serve) {
 		await servePortfolioTemplate(portfolioDir);
 	} else if (deploy) {
-		// ToDo: set up deployment options
+		await setUpDeployment();
 	}
 };
 
