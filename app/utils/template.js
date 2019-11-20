@@ -94,7 +94,30 @@ const sampleManifestContent = {
 	orientation: 'portrait',
 };
 
+const sampleTravisConfigContent = `
+language: node_js
+cache:
+  directories:
+    - ~/.npm
+node_js:
+  - 10
+git:
+  depth: 3
+script:
+  - yarn run serve
+deploy:
+  provider: pages
+  skip-cleanup: true
+  keep-history: true
+  github-token: $GITHUB_TOKEN
+  local-dir: out
+  target-branch: gh-pages
+  on:
+    branch: master
+`;
+
 module.exports = {
 	sampleReadmeContent,
 	sampleManifestContent,
+	sampleTravisConfigContent,
 };
