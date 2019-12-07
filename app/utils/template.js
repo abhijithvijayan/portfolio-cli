@@ -104,7 +104,7 @@ node_js:
 git:
   depth: 3
 script:
-  - yarn run serve
+  - yarn run release
 deploy:
   provider: pages
   skip-cleanup: true
