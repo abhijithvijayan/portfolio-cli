@@ -11,10 +11,10 @@ const cli = meow(
 	Input
 		generate	Bootstraps the portfolio template
 		serve  		Serves the portfolio template locally
-		deploy    Creates a travis config file to deploy to GitHub Pages
+		deploy    	Creates a travis config file to deploy to GitHub Pages
 
 	Options
-		-v, --version          Show the version and exit with code 0
+		-v, --version   Show the version and exit with code 0
 
   Examples
 		$ abhijithvijayan-portfolio generate

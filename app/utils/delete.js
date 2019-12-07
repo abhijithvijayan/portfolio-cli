@@ -11,15 +11,15 @@ const deleteStrayFilesAndFolders = async () => {
 	const deleteCommand = isWin ? 'del' : 'rm';
 
 	if (fs.existsSync('.kodiak.toml')) {
-		execa(`${deleteCommand} .kodiak.toml`, { shell: true });
+		await execa(`${deleteCommand} .kodiak.toml`, { shell: true });
 	}
 
 	if (fs.existsSync('CONTRIBUTING.md')) {
-		execa(`${deleteCommand} CONTRIBUTING.md`, { shell: true });
+		await execa(`${deleteCommand} CONTRIBUTING.md`, { shell: true });
 	}
 
 	if (fs.existsSync('CODE_OF_CONDUCT.md')) {
-		execa(`${deleteCommand} CODE_OF_CONDUCT.md`, { shell: true });
+		await execa(`${deleteCommand} CODE_OF_CONDUCT.md`, { shell: true });
 	}
 
 	// overwrite `config/index.js` with `config/sample.js`
@@ -28,7 +28,7 @@ const deleteStrayFilesAndFolders = async () => {
 	}
 
 	if (fs.existsSync('public/resume.pdf')) {
-		execa(`${deleteCommand} public/resume.pdf`, { shell: true });
+		await execa(`${deleteCommand} public/resume.pdf`, { shell: true });
 	}
 
 	// overwrite public/manifest.json
