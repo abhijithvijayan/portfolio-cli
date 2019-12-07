@@ -43,15 +43,17 @@ const writeConfigFileToFolder = async () => {
 /**
  *  Performs initial commit
  */
-const performInitialCommit = () => {
+const performInitialCommit = async () => {
 	// Remove existing `.git` folder
 	const OsRemoveCmd = isWin ? 'rmdir /s /q' : 'rm -rf';
-	execa(`${OsRemoveCmd} ${path.join(portfolioDir, '.git')}`, { shell: true });
+	// delete .git folder
+	await execa(`${OsRemoveCmd} .git`, { shell: true });
 
 	const commands = ['init', 'add%.', 'commit%-m "⚡️ Initial commit from abhijithvijayan-portfolio CLI"'];
-	commands.forEach(command => {
+
+	for await (const command of commands) {
 		return execa.sync('git', command.split('%'));
-	});
+	}
 };
 
 /**
