@@ -1,7 +1,7 @@
 const fs = require('fs');
 
 const currentDate = require('./utils/moment');
-const { flashError } = require('./utils/displayMessages');
+const { flashError, showDeploymentConfigMessages } = require('./utils/displayMessages');
 const { writeFileAsync, readFileAsync } = require('./utils/fs');
 const { sampleTravisConfigContent } = require('./utils/template');
 
@@ -11,8 +11,14 @@ const setUpDeployConfig = async () => {
 		return flashError(`Error: Current directory doesn't have portfolio config file`);
 	}
 
-	// create travis config file
-	await writeFileAsync('.travis.yml', sampleTravisConfigContent);
+	try {
+		// create travis config file
+		await writeFileAsync('.travis.yml', sampleTravisConfigContent);
+
+		showDeploymentConfigMessages();
+	} catch (err) {
+		return flashError(err);
+	}
 
 	const configFile = await readFileAsync(`portfolio-cli.json`);
 	const configFileContent = JSON.parse(configFile.toString());
@@ -23,8 +29,9 @@ const setUpDeployConfig = async () => {
 	configFileContent.updatedOn = currentDate;
 
 	const writeFileContent = JSON.stringify(configFileContent, null, 2);
+
 	// write back the config file
-	await writeFileAsync(`portfolio-cli.json`, writeFileContent);
+	return writeFileAsync(`portfolio-cli.json`, writeFileContent);
 };
 
 module.exports = setUpDeployConfig;

@@ -49,4 +49,11 @@ const showFinalInstructionsToUser = () => {
 	console.log(chalk(`Run ${chalk.cyan.bold(`npx create-remote-repo portfolio`)}`));
 };
 
-module.exports = { flashError, showInitialCommandsToUser, showFinalInstructionsToUser };
+const showDeploymentConfigMessages = () => {
+	console.log();
+	console.log(chalk(`Success! Deployment configuration file for Travis CI created.`));
+	console.log();
+	console.log(chalk.cyan.bold(`Now sync repository with Travis CI at https://travis-ci.com/ to start deploying`));
+};
+
+module.exports = { flashError, showInitialCommandsToUser, showFinalInstructionsToUser, showDeploymentConfigMessages };
