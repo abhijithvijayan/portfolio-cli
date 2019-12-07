@@ -52,7 +52,7 @@ const performInitialCommit = async () => {
 	const commands = ['init', 'add%.', 'commit%-m "⚡️ Initial commit from abhijithvijayan-portfolio CLI"'];
 
 	for await (const command of commands) {
-		return execa.sync('git', command.split('%'));
+		execa.sync('git', command.split('%'));
 	}
 };
 
