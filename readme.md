@@ -1,8 +1,9 @@
-# abhijithvijayan-portfolio [![npm version](https://img.shields.io/npm/v/abhijithvijayan-portfolio)](https://www.npmjs.com/package/abhijithvijayan-portfolio)
+# abhijithvijayan-portfolio [![npm version](https://img.shields.io/npm/v/abhijithvijayan-portfolio)](https://www.npmjs.com/package/abhijithvijayan-portfolio) [![Build Status](https://travis-ci.com/abhijithvijayan/portfolio-cli.svg?token=bJxrXYoNqDthzrKNTKiz&branch=master)](https://travis-ci.com/abhijithvijayan/portfolio-cli)
 
 > CLI to use my [portfolio](https://github.com/abhijithvijayan/abhijithvijayan.in) site as a template to build yours.
 
-[![Build Status](https://travis-ci.com/abhijithvijayan/portfolio-cli.svg?token=bJxrXYoNqDthzrKNTKiz&branch=master)](https://travis-ci.com/abhijithvijayan/portfolio-cli)
+### 🙋‍♂️ Made by [@abhijithvijayan](https://twitter.com/_abhijithv)
+<br />
 
 <img src="demo.gif" width="752">
 
