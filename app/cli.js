@@ -27,13 +27,17 @@ const portfolioDir = 'portfolio';
  *  Write CLI config file locally to project
  */
 const writeConfigFileToFolder = async () => {
+	// last commit id
+	const { stdout } = await execa('git', ['log', '--format="%H"', '-n', '1']);
+
 	cliConfigContent = [
 		'{',
 		`  "name": "${portfolioDir}",`,
 		`  "version": "${pkg.version}",`,
 		`  "fetch": true,`,
 		`  "generatedOn": "${currentDate}",`,
-		`  "remote": "https://github.com/abhijithvijayan/abhijithvijayan.in"`,
+		`  "remote": "https://github.com/abhijithvijayan/abhijithvijayan.in",`,
+		`  "commit": ${stdout}`,
 		'}',
 	];
 
