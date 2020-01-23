@@ -52,9 +52,7 @@
 		"inquirer": "^7.0.3",
 		"meow": "^5.0.0",
 		"ora": "^4.0.3",
-		"validate.io-boolean-primitive": "^1.0.0",
-		"validate.io-object": "^1.0.4",
-		"validate.io-string-primitive": "^1.0.1"
+		"validate.io-object": "^1.0.4"
 	},
 	"devDependencies": {
 		"babel-eslint": "10.0.3",
