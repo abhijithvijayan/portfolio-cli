@@ -111,13 +111,6 @@ const initializeCLI = async (_options, userInputs) => {
 		return flashError(err);
 	}
 
-	const { version } = options;
-
-	if (version) {
-		console.log(chalk(pkg.version));
-		return;
-	}
-
 	let generate = false;
 	let serve = false;
 	let deploy = false;
