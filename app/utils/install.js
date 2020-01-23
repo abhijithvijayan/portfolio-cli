@@ -15,7 +15,7 @@ const spinner = new Spinner();
 async function installGit() {
 	if (isWin) {
 		const url = 'https://git-scm.com/download/win';
-		// ToDo: show installation info
+		flashError(`Follow instructions online at ${url}`);
 	} else {
 		const packageManager = isLinux ? 'apt' : 'brew';
 
@@ -37,7 +37,7 @@ async function installGit() {
 async function installYarn() {
 	if (isWin) {
 		const url = 'https://yarnpkg.com/lang/en/docs/install/#windows-stable';
-		// ToDo: show installation info
+		flashError(`Follow instructions online at ${url}`);
 	} else {
 		const packageManager = isLinux ? 'apt' : 'brew';
 
