@@ -5,7 +5,7 @@ const { flashError, showDeploymentConfigMessages } = require('./utils/displayMes
 const { writeFileAsync, readFileAsync } = require('./utils/fs');
 const { sampleTravisConfigContent } = require('./utils/template');
 
-const setUpDeployConfig = async () => {
+async function setUpDeployConfig() {
 	// check if `portfolio-cli.json` exists
 	if (!fs.existsSync('portfolio-cli.json')) {
 		return flashError(`Error: Current directory doesn't have portfolio config file`);
@@ -32,6 +32,6 @@ const setUpDeployConfig = async () => {
 
 	// write back the config file
 	return writeFileAsync(`portfolio-cli.json`, writeFileContent);
-};
+}
 
 module.exports = setUpDeployConfig;

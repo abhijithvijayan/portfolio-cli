@@ -10,7 +10,7 @@ const validateDependencyInstallation = require('./utils/install');
 /**
  *  Handles package installation
  */
-const installPackages = async () => {
+async function installPackages() {
 	console.log();
 	const installDepsSpinner = new Spinner('Installing packages. This might take a couple of minutes.');
 	installDepsSpinner.start();
@@ -23,12 +23,12 @@ const installPackages = async () => {
 	}
 
 	installDepsSpinner.succeed(`Success! Your new portfolio site is generated and ready to use.`);
-};
+}
 
 /**
  *  Serve the template after package installation
  */
-const servePortfolioTemplate = async portfolioDir => {
+async function servePortfolioTemplate(portfolioDir) {
 	// check if `portfolio-cli.json` exists
 	if (!fs.existsSync('portfolio-cli.json')) {
 		return flashError(`Error: Current directory doesn't have portfolio config file`);
@@ -45,6 +45,6 @@ const servePortfolioTemplate = async portfolioDir => {
 	await validateDependencyInstallation('yarn --version');
 	await installPackages();
 	showFinalInstructionsToUser();
-};
+}
 
 module.exports = servePortfolioTemplate;

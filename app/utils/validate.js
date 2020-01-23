@@ -5,7 +5,7 @@ const isObject = require('validate.io-object');
 /**
  *  CLI arguments validator
  */
-const argumentValidator = _options => {
+function argumentValidator(_options) {
 	// const { options } = cli;
 
 	if (!isObject(_options)) {
@@ -13,6 +13,6 @@ const argumentValidator = _options => {
 	}
 
 	return null;
-};
+}
 
 module.exports = argumentValidator;

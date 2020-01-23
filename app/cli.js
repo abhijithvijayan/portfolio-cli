@@ -26,7 +26,7 @@ const portfolioDir = 'portfolio';
 /**
  *  Write CLI config file locally to project
  */
-const writeConfigFileToFolder = async () => {
+async function writeConfigFileToFolder() {
 	// last commit id
 	const { stdout } = await execa('git', ['log', '--format="%H"', '-n', '1']);
 
@@ -42,12 +42,12 @@ const writeConfigFileToFolder = async () => {
 	];
 
 	await writeFileAsync('portfolio-cli.json', cliConfigContent.join('\n').toString());
-};
+}
 
 /**
  *  Performs initial commit
  */
-const performInitialCommit = async () => {
+async function performInitialCommit() {
 	// Remove existing `.git` folder
 	const OsRemoveCmd = isWin ? 'rmdir /s /q' : 'rm -rf';
 	// delete .git folder
@@ -58,12 +58,12 @@ const performInitialCommit = async () => {
 	for await (const command of commands) {
 		execa.sync('git', command.split('%'));
 	}
-};
+}
 
 /**
  *  Fetch and Clone the template
  */
-const fetchPortfolioTemplate = async destination => {
+async function fetchPortfolioTemplate(destination) {
 	// validate git installation
 	await validateDependencyInstallation('git help -a');
 
@@ -81,12 +81,12 @@ const fetchPortfolioTemplate = async destination => {
 	}
 
 	fetchSpinner.stop();
-};
+}
 
 /**
  *  Generator Function
  */
-const generatePortfolio = async () => {
+async function generatePortfolio() {
 	const destination = path.resolve(process.cwd(), portfolioDir);
 	await fetchPortfolioTemplate(destination);
 
@@ -98,7 +98,7 @@ const generatePortfolio = async () => {
 	await performInitialCommit();
 
 	showInitialCommandsToUser({ destination, portfolioDir });
-};
+}
 
 /**
  *	Driver Function

@@ -3,15 +3,15 @@ const chalk = require('chalk');
 /**
  *  Display Errors
  */
-const flashError = message => {
+function flashError(message) {
 	console.error(chalk.bold.red(`✖ ${message}`));
 	process.exit(1);
-};
+}
 
 /**
  *  Shows next actions to user
  */
-const showInitialCommandsToUser = ({ destination, portfolioDir }) => {
+function showInitialCommandsToUser({ destination, portfolioDir }) {
 	console.log(chalk(`Initialized a git repository.`));
 	console.log();
 	console.log(
@@ -33,9 +33,9 @@ const showInitialCommandsToUser = ({ destination, portfolioDir }) => {
 	console.log();
 	console.log(chalk(`  ${chalk.cyan.bold(`cd`)} ${portfolioDir}`));
 	console.log(chalk.cyan.bold(`  abhijithvijayan-portfolio serve`));
-};
+}
 
-const showFinalInstructionsToUser = () => {
+function showFinalInstructionsToUser() {
 	console.log();
 	console.log(chalk.green.bold(`  Warning!`));
 	console.log(chalk(`   Do not delete or modify the ${chalk.cyan.bold(`portfolio-cli.json`)} file`));
@@ -47,13 +47,13 @@ const showFinalInstructionsToUser = () => {
 	console.log(chalk(`Want to create remote repo as well?`));
 	console.log();
 	console.log(chalk(`Run ${chalk.cyan.bold(`npx create-remote-repo portfolio`)}`));
-};
+}
 
-const showDeploymentConfigMessages = () => {
+function showDeploymentConfigMessages() {
 	console.log();
 	console.log(chalk(`Success! Deployment configuration file for Travis CI created.`));
 	console.log();
 	console.log(chalk.cyan.bold(`Now sync repository with Travis CI at https://travis-ci.com/ to start deploying`));
-};
+}
 
 module.exports = { flashError, showInitialCommandsToUser, showFinalInstructionsToUser, showDeploymentConfigMessages };

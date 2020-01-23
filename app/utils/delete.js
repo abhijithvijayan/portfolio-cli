@@ -7,7 +7,7 @@ const { readFileAsync, writeFileAsync } = require('./fs');
 
 const { sampleReadmeContent, sampleManifestContent } = require('./template');
 
-const deleteStrayFilesAndFolders = async () => {
+async function deleteStrayFilesAndFolders() {
 	const deleteCommand = isWin ? 'del' : 'rm';
 
 	if (fs.existsSync('.kodiak.toml')) {
@@ -80,6 +80,6 @@ const deleteStrayFilesAndFolders = async () => {
 		'!markdown/contact',
 		'!markdown/contact/sample.md',
 	]);
-};
+}
 
 module.exports = deleteStrayFilesAndFolders;

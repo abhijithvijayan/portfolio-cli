@@ -12,7 +12,7 @@ const spinner = new Spinner();
 /**
  *  Trigger Git Installation
  */
-const installGit = async () => {
+async function installGit() {
 	if (isWin) {
 		const url = 'https://git-scm.com/download/win';
 		// ToDo: show installation info
@@ -29,12 +29,12 @@ const installGit = async () => {
 			throw err;
 		}
 	}
-};
+}
 
 /**
  *  Trigger yarn installation
  */
-const installYarn = async () => {
+async function installYarn() {
 	if (isWin) {
 		const url = 'https://yarnpkg.com/lang/en/docs/install/#windows-stable';
 		// ToDo: show installation info
@@ -52,12 +52,12 @@ const installYarn = async () => {
 			throw err;
 		}
 	}
-};
+}
 
 /**
  *  Install the missing dependency
  */
-const installDependency = async dependency => {
+async function installDependency(dependency) {
 	spinner.text = `Installing ${dependency}`;
 	spinner.start();
 
@@ -67,24 +67,24 @@ const installDependency = async dependency => {
 	} else if (dependency === 'yarn --version') {
 		await installYarn();
 	}
-};
+}
 
 /**
  *  Run dependency command to see if it is installed
  */
-const checkIfDependencyIsInstalled = async command => {
+async function checkIfDependencyIsInstalled(command) {
 	try {
 		await execa(command, { shell: true });
 		return true;
 	} catch (err) {
 		return false;
 	}
-};
+}
 
 /**
  *  Installation Validator
  */
-const validateDependencyInstallation = async dependency => {
+async function validateDependencyInstallation(dependency) {
 	const isInstalled = await checkIfDependencyIsInstalled(dependency);
 
 	if (!isInstalled) {
@@ -102,6 +102,6 @@ const validateDependencyInstallation = async dependency => {
 			flashError(` Warning:- ${chalk.cyan.bold(`${dependency} is required to be installed`)}`);
 		}
 	}
-};
+}
 
 module.exports = validateDependencyInstallation;
