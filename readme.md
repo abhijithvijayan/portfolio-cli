@@ -1,3 +1,6 @@
+# Deprecated!
+WARNING: This project has been renamed to `@abhijithvijayan/portfolio`. Install using new-package-name instead.
+
 # abhijithvijayan-portfolio [![npm version](https://img.shields.io/npm/v/abhijithvijayan-portfolio)](https://www.npmjs.com/package/abhijithvijayan-portfolio) [![Build Status](https://travis-ci.com/abhijithvijayan/portfolio-cli.svg?branch=master)](https://travis-ci.com/abhijithvijayan/portfolio-cli)
 
 > CLI to use my [portfolio](https://github.com/abhijithvijayan/abhijithvijayan.in) site as a template to build yours.
