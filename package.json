@@ -1,19 +1,17 @@
 {
-	"name": "abhijithvijayan-portfolio",
-	"version": "2.0.1",
+	"name": "@abhijithvijayan/portfolio",
+	"version": "0.0.0",
 	"description": "CLI to use my portfolio site as a template to build yours!",
 	"license": "MIT",
 	"author": "abhijithvijayan",
-	"bin": {
-		"abhijithvijayan-portfolio": "app/index.js"
+	"engines": {
+		"node": ">=10.0.0"
 	},
+	"bin": "app/index.js",
 	"files": [
 		"app",
 		"demo.gif"
 	],
-	"engines": {
-		"node": ">=10.0.0"
-	},
 	"scripts": {
 		"lint": "eslint .",
 		"lint:fix": "eslint . --fix"
