@@ -28,7 +28,7 @@ async function installPackages() {
 /**
  *  Serve the template after package installation
  */
-async function servePortfolioTemplate(portfolioDir) {
+async function servePortfolioTemplate(directory) {
 	// check if `portfolio-cli.json` exists
 	if (!fs.existsSync('portfolio-cli.json')) {
 		return flashError(`Error: Current directory doesn't have portfolio config file`);
@@ -39,7 +39,7 @@ async function servePortfolioTemplate(portfolioDir) {
 	const { fetch } = JSON.parse(fileContent.toString());
 
 	if (!fetch) {
-		return flashError(`Error: Directory ${chalk.cyan.bold(portfolioDir)} doesn't have required template files`);
+		return flashError(`Error: Directory ${chalk.cyan.bold(directory)} doesn't have required template files`);
 	}
 
 	await validateDependencyInstallation('yarn --version');
