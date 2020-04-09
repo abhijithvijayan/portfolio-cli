@@ -6,7 +6,7 @@ const initializeCLI = require('./cli');
 const cli = meow(
 	`
 	Usage
-		$ abhijithvijayan-portfolio [input] [options]
+		$ @abhijithvijayan/portfolio [input] [options]
 
 	Input
 		generate	Bootstraps the portfolio template
@@ -17,7 +17,7 @@ const cli = meow(
 		-v, --version   Show the version and exit with code 0
 
 	Examples
-		$ abhijithvijayan-portfolio generate
+		$ @abhijithvijayan/portfolio generate
 `,
 	{
 		flags: {

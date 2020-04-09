@@ -53,7 +53,7 @@ async function performInitialCommit() {
 	// delete .git folder
 	await execa(`${OsRemoveCmd} .git`, { shell: true });
 
-	const commands = ['init', 'add%.', 'commit%-m "⚡️ Initial commit from abhijithvijayan-portfolio CLI"'];
+	const commands = ['init', 'add%.', 'commit%-m "⚡️ Initial commit from @abhijithvijayan/portfolio CLI"'];
 
 	for await (const command of commands) {
 		execa.sync('git', command.split('%'));

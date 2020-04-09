@@ -32,7 +32,7 @@ function showInitialCommandsToUser({ destination, portfolioDir }) {
 	console.log(chalk(`We suggest that you begin by typing:`));
 	console.log();
 	console.log(chalk(`  ${chalk.cyan.bold(`cd`)} ${portfolioDir}`));
-	console.log(chalk.cyan.bold(`  abhijithvijayan-portfolio serve`));
+	console.log(chalk.cyan.bold(`  @abhijithvijayan/portfolio serve`));
 }
 
 function showFinalInstructionsToUser() {
