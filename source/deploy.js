@@ -25,8 +25,9 @@ async function setUpDeployConfig() {
 
 	// inject fields to config file
 	configFileContent.deploy = true;
+	configFileContent.ci = 'travis';
 	configFileContent.provider = 'gh-pages';
-	configFileContent.updatedOn = currentDate;
+	configFileContent.enabled = currentDate;
 
 	const writeFileContent = JSON.stringify(configFileContent, null, 2);
 
