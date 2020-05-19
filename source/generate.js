@@ -26,7 +26,7 @@ async function writeConfigFileToFolder(directory) {
 		`  "sync": true,`,
 		`  "generatedBy": "${pkg.name}",`,
 		`  "generatedOn": "${currentDate}",`,
-		`  "remote": "https://github.com/abhijithvijayan/abhijithvijayan.in",`,
+		`  "remote": "https://github.com/abhijithvijayan/v6",`,
 		`  "commit": ${stdout}`,
 		'}',
 	];
@@ -57,7 +57,7 @@ async function fetchPortfolioTemplate(destination, directory) {
 	// validate git installation
 	await validateDependencyInstallation('git help -a');
 
-	const repoURL = 'https://github.com/abhijithvijayan/abhijithvijayan.in';
+	const repoURL = 'https://github.com/abhijithvijayan/v6';
 
 	const fetchSpinner = new Spinner(`Generating a new portfolio site in ${destination}`);
 	console.log();

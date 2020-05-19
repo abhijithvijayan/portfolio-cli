@@ -1,6 +1,6 @@
 # portfolio-cli [![npm version](https://img.shields.io/npm/v/@abhijithvijayan/portfolio)](https://www.npmjs.com/package/@abhijithvijayan/portfolio) [![Build Status](https://travis-ci.com/abhijithvijayan/portfolio-cli.svg?branch=master)](https://travis-ci.com/abhijithvijayan/portfolio-cli)
 
-> CLI to use my [portfolio](https://github.com/abhijithvijayan/abhijithvijayan.in) site as a template to build yours.
+> CLI to use my [portfolio](https://github.com/abhijithvijayan/v6) site as a template to build yours.
 
 <h3>🙋‍♂️ Made by <a href="https://twitter.com/_abhijithv">@abhijithvijayan</a></h3>
 <p>
@@ -20,13 +20,13 @@
 Ensure you have [Node.js](https://nodejs.org) 10 or later installed. Then run the following:
 
 ```
-$ npm install --global @abhijithvijayan/portfolio
+npm install --global @abhijithvijayan/portfolio
 ```
 
 If you don't want to install the CLI globally, you can use `npx` to run the CLI:
 
 ```
-$ npx @abhijithvijayan/portfolio --help
+npx @abhijithvijayan/portfolio --help
 ```
 
 ## Usage
@@ -36,19 +36,19 @@ $ @abhijithvijayan/portfolio --help
 
   CLI to use my portfolio site template to build yours!
 
-	Usage
-	  $ @abhijithvijayan/portfolio [input] [options]
+ Usage
+   $ @abhijithvijayan/portfolio [input] [options]
 
-	Input
-		generate	Bootstraps the portfolio template
-		serve  		Serves the portfolio template locally
-		deploy    	Creates a travis config file to deploy to GitHub Pages
+ Input
+  generate Bootstraps the portfolio template
+  serve    Serves the portfolio template locally
+  deploy     Creates a travis config file to deploy to GitHub Pages
 
-	Options
-		-v, --version   Show the version and exit with code 0
+ Options
+  -v, --version   Show the version and exit with code 0
 
   Examples
-		$ @abhijithvijayan/portfolio generate
+  $ @abhijithvijayan/portfolio generate
 ```
 
 ## Show your support

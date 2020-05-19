@@ -24,7 +24,7 @@ Copy contents (images, documents, etc...) to \`public /\` directory
 
 ##### 🌟 Adding other site-data
 
-Copy \`sample.md\` to \`index.md\` in the \`markdown / SECTION_NAME\` directory and update accordingly. See [how I did](https://github.com/abhijithvijayan/abhijithvijayan.in/tree/master/markdown) mine
+Copy \`sample.md\` to \`index.md\` in the \`markdown / SECTION_NAME\` directory and update accordingly. See [how I did](https://github.com/abhijithvijayan/v6/tree/master/markdown) mine
 
 ##### 🌟 PWA Support
 
