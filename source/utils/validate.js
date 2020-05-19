@@ -6,13 +6,15 @@ const isObject = require('validate.io-object');
  *  CLI arguments validator
  */
 function argumentValidator(_options) {
-	// const { options } = cli;
+  // const { options } = cli;
 
-	if (!isObject(_options)) {
-		return new TypeError(`invalid input argument. Options argument must be an object. Value: \`${_options}\`.`);
-	}
+  if (!isObject(_options)) {
+    return new TypeError(
+      `invalid input argument. Options argument must be an object. Value: \`${_options}\`.`
+    );
+  }
 
-	return null;
+  return null;
 }
 
 module.exports = argumentValidator;

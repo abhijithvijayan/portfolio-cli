@@ -1,7 +1,7 @@
 const meow = require('meow');
 
 const cli = meow(
-	`
+  `
 	Usage
 		$ @abhijithvijayan/portfolio [input] [options]
 
@@ -16,23 +16,23 @@ const cli = meow(
 	Examples
 		$ @abhijithvijayan/portfolio generate
 `,
-	{
-		flags: {
-			generate: {
-				type: 'string',
-			},
-			serve: {
-				type: 'string',
-			},
-			deploy: {
-				type: 'string',
-			},
-			version: {
-				type: 'boolean',
-				alias: 'v',
-			},
-		},
-	}
+  {
+    flags: {
+      generate: {
+        type: 'string',
+      },
+      serve: {
+        type: 'string',
+      },
+      deploy: {
+        type: 'string',
+      },
+      version: {
+        type: 'boolean',
+        alias: 'v',
+      },
+    },
+  }
 );
 
 module.exports = cli;
